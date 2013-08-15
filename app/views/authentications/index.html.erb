@@ -1,0 +1,5 @@
+<% @authentications.each do |auth| %>
+  <p><%= auth.provider %></p>
+<% end %>
+<a href="/users/auth/facebook">Facebook</a><br />
+<a href="/users/auth/twitter">Twitter</a>

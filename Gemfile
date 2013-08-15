@@ -27,9 +27,10 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
-# Handle user authentication
+# Handle user authentication  
 gem 'devise'
 gem 'omniauth-facebook'
+gem 'omniauth-twitter'
 # gem 'omniauth-twitter'
 
 # PostgreSql adapter

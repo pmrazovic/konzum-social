@@ -1,5 +1,5 @@
 class AuthenticationsController < ApplicationController
-  before_filter :authenticate_user!, :only => [:index, :destroy]
+  before_filter :authenticate_user!, :only => [:home, :index, :destroy]
   def index
     @authentications = current_user.authentications.all
   end

@@ -5,6 +5,9 @@ class User < ActiveRecord::Base
   has_many :authentications, :dependent => :destroy
   devise :database_authenticatable, :registerable, :omniauthable,
          :recoverable, :rememberable, :trackable, :validatable
+         
+  validates :first_name, :presence => true
+  validates :last_name, :presence => true
 
   def password_required?
     (authentications.empty? || !password.blank?) && super
@@ -24,4 +27,9 @@ class User < ActiveRecord::Base
       super
     end
   end
+
+  def full_name
+    "#{first_name} #{last_name}"
+  end
+
 end

@@ -25,7 +25,9 @@ class AuthenticationsController < ApplicationController
      sign_in_and_redirect current_user
     else
      user = User.new
-     user.email = omni['extra']['raw_info'].email 
+     user.email = omni['extra']['raw_info'].email
+     user.first_name = omni['extra']['raw_info'].first_name
+     user.last_name = omni['extra']['raw_info'].last_name
 
      user.apply_omniauth(omni)
 

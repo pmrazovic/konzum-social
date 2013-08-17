@@ -22,13 +22,14 @@
             <%= link_to "Sign Up", new_registration_path(resource_name), :class => "btn btn-inverse" %>
           <% else %>
             <a class="btn btn-inverse dropdown-toggle" data-toggle="dropdown" href="#">
-              <i class="icon-user icon-white"></i> Username
+              <i class="icon-user icon-white"></i> <%= current_user.full_name %>
               <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
-              <li><a href="#"><%= t('.profile') %></a></li>
+              <li><%= link_to "Profile", "#" %></li>
+              <li><%= link_to "Settings", edit_user_registration_path %></li>
               <li class="divider"></li>
-              <li><a href="#"><%= t('.sign_out')%></a></li>
+              <li><%= link_to "Log out", destroy_user_session_path, :method => :delete %></a></li>
             </ul>
           <% end %>
         </div>

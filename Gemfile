@@ -31,7 +31,8 @@ gem 'jbuilder', '~> 1.2'
 gem 'devise'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
-# gem 'omniauth-twitter'
+# Facebook Graph Api
+gem 'koala'
 
 # PostgreSql adapter
 gem 'activerecord-postgresql-adapter'

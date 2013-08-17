@@ -1,24 +1,30 @@
-<div class="container">
+<div class="row-fluid">
+  <div class="span4"></div>
+  <div class="span4">
+    <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+      <% unless flash[:alert].blank? %>
+        <div class="alert alert-error">
+        <a class="close" data-dismiss="alert" href="#">×</a>
+        <%= flash[:alert] %>
+      </div>
+      <% end %>
+      <%= f.email_field :email, :autofocus => true, :class => "span12", :placeholder => "E-mail" %>
+      <%= f.password_field :password, :class => "span12", :placeholder => "Password" %>
+      <div><%= f.submit "Log in", :class => "span6 btn" %></div>
+    <% end %>
+    </div>
+  <div class="span4"></div>
+</div>
 
-  <h2>Sign in</h2>
+<h2>
+  Or
+</h2>
 
-  <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-    <div><%= f.label :email %><br />
-    <%= f.email_field :email, :autofocus => true %></div>
+<div>
+  <a class="btn btn-large btn-facebook" href="<%= omniauth_authorize_path(resource_name, :facebook) %>">
+  <i class="icon-facebook icon-large"></i> | Connect with Facebook</a>
+</div>
 
-    <div><%= f.label :password %><br />
-    <%= f.password_field :password %></div>
-
-    <% if devise_mapping.rememberable? -%>
-      <div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
-    <% end -%>
-
-    <div><%= f.submit "Sign in" %></div>
-  <% end %>
-
-  <%= render "devise/shared/links" %>
-
-  <a class="btn btn-large btn-facebook" href="#">
-    <i class="icon-facebook icon-large"></i> | Spoji se s Facebook računom</a>
-
+<div class="registration-links">
+  <%= link_to "Sign up", new_registration_path(resource_name) %>
 </div>

@@ -47,20 +47,13 @@
 
   <header class="jumbotron subhead" id="overview">
     <div class="container">
-      <%= image_tag 'small_banner.png'%>
+      <%= image_tag 'banner.png'%>
+      <%= yield %>
     </div>
   </header>
 
-  <div class="container" style="padding-top: 30px">
-      <div class="row-fluid">
-        <div class="span3">  
-        </div>
-        <div class="span9">
-          <!--Body content-->
-          <%= yield %>
-        </div>
-      </div>
-    </div>
+
+
 
 </body>
 </html>

@@ -98,7 +98,7 @@ body > .navbar .brand:hover {
   right: 0;
   bottom: 0;
   left: 0;
-  background: url(masthead-pattern.png) repeat center center;
+  background: url(images/masthead-pattern.png) repeat center center;
   opacity: .6;
 }
 @media

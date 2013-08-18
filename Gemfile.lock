@@ -164,7 +164,7 @@ DEPENDENCIES
   jbuilder (~> 1.2)
   jquery-rails
   koala
-  omniauth-facebook (~> 1.4.1)
+  omniauth-facebook
   omniauth-twitter
   pg
   rails (= 4.0.0)

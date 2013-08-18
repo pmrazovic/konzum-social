@@ -196,6 +196,9 @@ only screen and (     -o-min-device-pixel-ratio: 2/1) {
     margin-right: -20px;
     margin-left:  -20px;
   }
+  .bs-docs-brands {
+    margin: 0 -20px;
+  }
   
 }
 

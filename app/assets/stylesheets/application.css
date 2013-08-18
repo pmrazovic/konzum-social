@@ -112,6 +112,30 @@ only screen and (     -o-min-device-pixel-ratio: 2/1) {
 
 }
 
+/* Agrokor brands tray */
+.bs-docs-brands {
+  padding: 15px 0;
+  text-align: center;
+  background-color: #f5f5f5;
+  border-top: 1px solid #fff;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Quick links on Home */
+.bs-docs-brands-buttons {
+  margin-left: 0;
+  margin-bottom: 0;
+  padding-left: 0;
+  list-style: none;
+}
+.bs-docs-brands-buttons li {
+  display: inline-block;
+  padding: 5px 8px;
+  line-height: 1;
+  *display: inline;
+  *zoom: 1;
+}
+
 
 /* Subhead (other pages)
 ------------------------- */

@@ -10,7 +10,11 @@
       <div class="btn-group pull-right">
         <div class="nav-collapse">
           <% if current_user.blank? %>
-            <%= link_to "Sign Up", new_registration_path(resource_name), :class => "btn btn-inverse" %>
+            <% if params[:controller] == 'devise/sessions' and params[:action] == 'new' %>
+              <%= link_to "Sign Up", new_registration_path(resource_name), :class => "btn btn-inverse" %>
+            <% elsif params[:controller] == 'devise/registrations' and params[:action] == 'new' %>
+              <%= link_to "Sign In", new_session_path(resource_name), :class => "btn btn-inverse" %>
+            <% end %>
           <% else %>
             <a class="btn btn-inverse dropdown-toggle" data-toggle="dropdown" href="#">
               <i class="icon-user icon-white"></i> Username

@@ -12,17 +12,15 @@
       <%= f.password_field :password, :class => "span12", :placeholder => "Password" %>
       <div><%= f.submit "Log in", :class => "span6 btn" %></div>
     <% end %>
+    <h2>
+      Or
+    </h2>
+    <div class="span12">
+      <a class="btn btn-large btn-facebook" href="<%= omniauth_authorize_path(resource_name, :facebook) %>">
+      <i class="icon-facebook icon-large"></i> | Connect with Facebook</a>
     </div>
+  </div>
   <div class="span4"></div>
-</div>
-
-<h2>
-  Or
-</h2>
-
-<div>
-  <a class="btn btn-large btn-facebook" href="<%= omniauth_authorize_path(resource_name, :facebook) %>">
-  <i class="icon-facebook icon-large"></i> | Connect with Facebook</a>
 </div>
 
 <div class="registration-links">

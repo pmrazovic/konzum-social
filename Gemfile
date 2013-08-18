@@ -32,7 +32,7 @@ gem 'jbuilder', '~> 1.2'
 # Handle user authentication  
 gem 'devise'
 gem 'omniauth-facebook', '~> 1.4.1'
-gem 'omniauth-twitter', 
+gem 'omniauth-twitter'
 # Facebook Graph Api
 gem 'koala'
 

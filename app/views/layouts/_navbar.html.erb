@@ -1,47 +1,45 @@
 <div class="navbar navbar-inverse navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container">
-      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-inverse-collapse">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </a>
-      <a class="brand" href=<%= root_path %> >Konzum social</a>
-      <div class="btn-group pull-right">
-        <div class="nav-collapse">
-          <% if current_user.blank? %>
-            <% if params[:controller] == 'devise/sessions' and params[:action] == 'new' %>
-              <%= link_to "Sign Up", new_registration_path(resource_name), :class => "btn btn-inverse" %>
-            <% elsif params[:controller] == 'devise/registrations' and params[:action] == 'new' %>
-              <%= link_to "Sign In", new_session_path(resource_name), :class => "btn btn-inverse" %>
-            <% end %>
-          <% else %>
-            <a class="btn btn-inverse dropdown-toggle" data-toggle="dropdown" href="#">
-              <i class="icon-user icon-white"></i> Username
-              <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu">
-              <li><a href="#"><%= t('.profile') %></a></li>
-              <li class="divider"></li>
-              <li><a href="#"><%= t('.sign_out')%></a></li>
-            </ul>
-          <% end %>
-        </div>
-      </div>
-
-      <div class="nav-collapse">
+      <%= link_to 'Konzum social', root_path,   :class => 'brand' %>
+      <div class="nav-collapse collapse navbar-inverse-collapse">
         <ul class="nav">
           <li class="divider-vertical"></li>
-          <li><%= link_to "Home", "#" %></li>
-          <li class="divider-vertical"></li>
-          <li><%= link_to "Products", "#" %></li>
+          <li><a href="#"><i class="icon-home icon-white"></i> Home</a></li>
           <li class="divider-vertical"></li>
           <li><%= link_to "Friends", "#" %></li>
+          <li class="divider-vertical"></li>
+          <li><%= link_to "Products", "#" %></li>
           <li class="divider-vertical"></li>
           <li><%= link_to "Settings", "#" %></li>
           <li class="divider-vertical"></li>
         </ul>
-      </div><!--/.nav-collapse -->
+        <ul class="nav pull-right">
+          <% if current_user.blank? %>
+            <% if params[:controller] == 'devise/sessions' && params[:action] == 'new' %>
+              <%= link_to 'Sign up', new_user_registration_path, :class => 'btn btn-inverse' %>
+            <% elsif params[:controller] == 'devise/registrations' && params[:action] == 'new' %>
+              <%= link_to 'Sign in', new_user_session_path, :class => 'btn btn-inverse' %>
+            <% end %>
+          <% else %>
+            <li class="divider-vertical"></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user icon-white"></i> <%= current_user.full_name %> <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#"><i class="icon-user icon-white"></i> Profile</a></li>
+                <li><a href="<%= edit_user_registration_path %>"><i class="icon-wrench icon-white"></i> Settings</a></li>
+                <li class="divider"></li>
+                <li><a href="<%= destroy_user_session_path %>" data-method="delete"><i class="icon-share icon-white"></i> Log out</a></li>
+              </ul>
+            </li>
+          <% end %>
+        </ul>
+      </div><!-- /.nav-collapse -->
     </div>
-  </div>
-</div>
+  </div><!-- /navbar-inner -->
+</div><!-- /navbar -->

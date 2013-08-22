@@ -28,6 +28,20 @@ hr.footer {
   margin-top: 30px;
 }
 
+.img-polaroid.profile {
+  margin-bottom: 15px;
+}
+
+hr.profile {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.container.profile {
+  width: 1000px;
+  margin-top: 30px;
+}
+
 /* Tweak navbar brand link to be super sleek
 -------------------------------------------------- */
 

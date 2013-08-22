@@ -1,4 +1,19 @@
-<h2>Welcome <%= current_user.full_name %></h2>
-<h5>This dashboard page is under construction...</h5>
-<%= link_to "Logout", destroy_user_session_path, :method => :delete %> | 
-<%= link_to "Edit account", edit_user_registration_path %>
+<div class="span3"> 
+  <div class="span12 well well-large">
+    <%= image_tag 'user-icon-male.png', :class => "span12 img-polaroid profile" %>
+    <h4><%= current_user.full_name %></h4>
+    <hr class="profile">
+    <p class="muted"><i class="icon-envelope-alt"></i> E-mail </p>
+    <p><%= current_user.email %></p>
+    <p class="muted"><i class="icon-time"></i> Joined on </p>
+    <p><%= current_user.created_at.strftime("%B %d, %Y") %></p>
+  </div>
+</div>
+<div class="span9">
+  <div class="span12 well well-large">
+    <h2>Welcome <%= current_user.full_name %></h2>
+    <h5>This dashboard page is under construction...</h5>
+    <%= link_to "Logout", destroy_user_session_path, :method => :delete %> | 
+    <%= link_to "Edit account", edit_user_registration_path %>
+  </div>
+</div>

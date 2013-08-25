@@ -25,6 +25,20 @@
       </div>
 
       <div class="control-group">
+        <%= f.label :gender, class: "control-label"%>  
+          <div class="controls">
+            <label class="radio inline">
+              <%= radio_button("user", "gender", "M", :checked => true) %>
+                <i class="icon-male"></i> Male
+              </label>
+            <label class="radio inline">
+              <%= radio_button("user", "gender", "F") %>
+                <i class="icon-female"></i> Female
+            </label>
+        </div>
+      </div>
+
+      <div class="control-group">
         <%= f.label :email, class: "control-label"%>  
         <div class="controls">
           <%= f.email_field :email, :class => "span12", :autofocus => true %>

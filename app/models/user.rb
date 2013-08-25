@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
          
   validates :first_name, :presence => true
   validates :last_name, :presence => true
+  validates :gender, :inclusion => {:in => ['M', 'F']}
 
   def password_required?
     (authentications.empty? || !password.blank?) && super
@@ -30,6 +31,34 @@ class User < ActiveRecord::Base
 
   def full_name
     "#{first_name} #{last_name}"
+  end
+
+  def connected_with_facebook?
+    authentications.map{|a| a.provider}.include?('facebook')
+  end
+
+  def facebook_authentication
+    authentications.where(:provider => 'facebook').first
+  end
+
+  def friends_from_facebook
+    graph = Koala::Facebook::API.new(facebook_authentication.token)
+    friends = graph.get_connections('me', 'friends')
+    friends_from_facebook = []
+    friends.each do |friend|
+      friends_auth = Authentication.where(:uid => friend['id']).first
+      friends_from_facebook << friends_auth.user unless friends_auth.nil?
+    end
+    return friends_from_facebook
+  end
+
+  def profile_picture
+    if connected_with_facebook?
+      graph = Koala::Facebook::API.new(facebook_authentication.token)      
+      return graph.get_picture('me', :type => 'large')
+    else
+      return gender == 'M' ? 'user-icon-male.png' : 'user-icon-female.png'
+    end
   end
 
 end

@@ -9,6 +9,15 @@
   <div><%= f.label :last_name %><br />
   <%= f.text_field :last_name %></div>
 
+  <label class="radio inline">
+    <%= radio_button("user", "gender", "M") %>
+      <i class="icon-male"></i> Male
+    </label>
+  <label class="radio inline">
+    <%= radio_button("user", "gender", "F") %>
+      <i class="icon-female"></i> Female
+  </label>
+
   <div><%= f.label :email %><br />
   <%= f.email_field :email %></div>
 
@@ -22,10 +31,14 @@
   <div><%= f.label :password_confirmation %><br />
   <%= f.password_field :password_confirmation %></div>
 
-  <% if current_user.password_required? %>
+  <% if current_user.password.blank? %>
     <div><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
     <%= f.password_field :current_password %></div>
   <% end %>
+
+  <% if !current_user.connected_with_facebook? %>
+    <%= link_to "Connect with Facebook", omniauth_authorize_path(resource_name, :facebook) %>
+  <% end %>  
 
   <div><%= f.submit "Update" %></div>
 <% end %>

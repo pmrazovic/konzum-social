@@ -28,6 +28,7 @@ class AuthenticationsController < ApplicationController
      user.email = omni['extra']['raw_info'].email
      user.first_name = omni['extra']['raw_info'].first_name
      user.last_name = omni['extra']['raw_info'].last_name
+     user.gender = omni['extra']['raw_info'].gender == 'male' ? 'M' : 'F'
 
      user.apply_omniauth(omni)
 

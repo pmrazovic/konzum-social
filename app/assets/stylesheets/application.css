@@ -41,6 +41,10 @@ hr.profile {
   margin-top: 30px;
 }
 
+ul.tree {
+    display: none;
+}
+
 /* Tweak navbar brand link to be super sleek
 -------------------------------------------------- */
 

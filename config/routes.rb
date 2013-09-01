@@ -3,6 +3,7 @@ KonzumSocial::Application.routes.draw do
               controllers: {omniauth_callbacks: "authentications"}
   resources :authentications
   resources :dashboard
+  resources :categories
 
   root :to => "dashboard#index"
 

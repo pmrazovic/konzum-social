@@ -1,0 +1,21 @@
+<script>
+$(document).ready(function () {
+  $('label.tree-toggler').click(function () {
+    $(this).parent().children('ul.tree').toggle(300);
+  });
+});
+</script>
+
+<div class="well" style="padding: 8px 0;">
+  <div>
+    <ul class="nav nav-list">
+      <% Category.where(:parent_id => nil).sort.each do |root_category| %>
+        <li><label class="tree-toggler nav-header"><%= root_category.name %></label>
+          <ul class="nav nav-list tree">
+            <%= generate_collapse_list(root_category).html_safe %>
+          </ul>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

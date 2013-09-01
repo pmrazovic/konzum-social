@@ -896,8 +896,8 @@ dd {
 hr {
   margin: 20px 0;
   border: 0;
-  border-top: 1px solid #eeeeee;
-  border-bottom: 1px solid #ffffff;
+  border-top: 1px solid #dbdbdb;
+  border-bottom: 1px solid #f6f6f6;
 }
 
 abbr[title],
@@ -4007,7 +4007,7 @@ input[type="submit"].btn.btn-mini {
 .nav-list > .active > a:focus {
   color: #ffffff;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
-  background-color: #0088cc;
+  background-color: #000Fc;
 }
 
 .nav-list [class^="icon-"],

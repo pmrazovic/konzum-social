@@ -35,6 +35,8 @@ hr.footer {
 hr.profile {
   margin-top: 15px;
   margin-bottom: 15px;
+  border-top: 1px solid #dbdbdb;
+  border-bottom: 1px solid #f6f6f6;
 }
 
 .container.profile {

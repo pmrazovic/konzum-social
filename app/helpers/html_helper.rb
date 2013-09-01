@@ -28,4 +28,12 @@ module HtmlHelper
     end
     return html
   end
+
+  def render_category_path(category)
+    if category.parent.nil?
+      return "<a href=\"" + category_path(category) + "\">#{category.name}</a>"
+    else
+      return render_category_path(category.parent) + " <i class=\"icon-angle-right\"></i> <a href=\"" + category_path(category) + "\">#{category.name}</a>"
+    end    
+  end
 end

@@ -1,5 +1,8 @@
 <div class="well">
-  <h3><%= @category.name %><h3>
+  <h3><%= @category.name %></h3>
+  <% unless @category.parent.nil? %>
+    <p><%= render_category_path(@category).html_safe %></p>
+  <% end %>
 </div>
 <table class="table table-striped">
   <thead>

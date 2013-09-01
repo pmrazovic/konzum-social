@@ -16,7 +16,7 @@ module HtmlHelper
 
     children_cats.each do |child|
       if child.children.blank?
-        html_child = "<li><a href=\"#\">#{child.name}</a></li>"
+        html_child = "<li><a href=\"" + category_path(child) + "\">#{child.name}</a></li>"
       else
         html_child = "<li><label class=\"tree-toggler nav-header\">#{child.name}</label>
                         <ul class=\"nav nav-list tree\">

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>KonzumSocial</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <%= render :partial => 'layouts/navbar' %>
+  <header class="jumbotron subhead" id="overview">
+    <div class="container">
+      <%= image_tag 'small_banner.png'%>
+    </div>
+  </header>
+
+  <div class="container profile">
+    <div class="row-fluid">
+
+      <div class="span3"> 
+        <%= render :partial => 'shared/cart' %>
+        <%= render :partial => 'category_nav_list' %>
+      </div>
+      <div class="span9">
+        <%= yield %>
+      </div>
+    </div>
+    
+  </div>
+
+</body>
+</html>

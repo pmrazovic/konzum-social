@@ -36,6 +36,8 @@ gem 'omniauth-twitter'
 # Facebook Graph Api
 gem 'koala'
 
+gem 'will_paginate', '~> 3.0'
+
 gem 'rails_12factor', group: :production
 
 group :doc do

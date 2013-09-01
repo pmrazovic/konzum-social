@@ -1,0 +1,30 @@
+<div class="well">
+  <h3><%= @category.name %><h3>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Product name</th>
+      <th>Unit of measure</th>
+      <th>Price</th>
+      <td></th>
+      <td></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @products.each do |product| %>
+      <tr>
+        <td><%= product.name %></td>
+        <td><%= product.sales_unit_of_measure %></td>
+        <td><%= number_to_currency(product.price, :unit => "HRK ", :separator => ',', :delimiter => '.') %></td>
+        <td><a href="#" class="btn btn-small"><i class="icon-info"></i> Info</a></td>
+        <td><a href="#" class="btn btn-primary btn-small"><i class="icon-shopping-cart"></i> Add to cart</a>
+        <td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<div class="pagination">
+  <%= will_paginate @products, :previous_label => 'Previous', :next_label => 'Next', :renderer => 'BootstrapPaginationHelper::LinkRenderer'%>
+</div>

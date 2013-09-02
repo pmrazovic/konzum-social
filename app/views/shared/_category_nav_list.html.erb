@@ -12,7 +12,7 @@ $(document).ready(function () {
       <% Category.where(:parent_id => nil).sort.each do |root_category| %>
         <li><label class="tree-toggler nav-header"><%= root_category.name %></label>
           <ul class="nav nav-list tree">
-            <%= generate_collapse_list(root_category).html_safe %>
+            <%= get_cached_categories_list(root_category).html_safe %>
           </ul>
         </li>
       <% end %>

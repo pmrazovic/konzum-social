@@ -1,4 +1,10 @@
 module HtmlHelper
+  def get_cached_categories_list(category)
+    Rails.cache.fetch('cached_categories') do
+      generate_collapse_list(category)      
+    end
+  end
+  
   def generate_collapse_list(category)
     html = ""
 

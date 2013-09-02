@@ -53,4 +53,51 @@ module HtmlHelper
       end    
     end
   end
+
+  def get_cached_categories_list_for_navbar
+    Rails.cache.fetch('cached_categories_for_navbar') do
+      html = ''
+      Category.where(:parent_id => nil).sort.each do |root_category|
+        html += "<li class=\"dropdown-submenu\">
+                        <a href=\"#\">#{root_category.name}</a>
+                        <ul class=\"dropdown-menu\">
+                          #{generate_collapse_list_for_navbar(root_category)}
+                        </ul>
+                      </li>"
+      end
+      html
+    end
+  end
+
+  def generate_collapse_list_for_navbar(category)
+    html = ""
+
+    # ordering categories
+    children_cats = []
+    leaf_children_cats = []
+    category.children.sort_by{|e| e.name}.each do |cat|
+      if cat.children.blank?
+        leaf_children_cats << cat
+      else
+        children_cats << cat
+      end
+    end
+    children_cats += leaf_children_cats
+
+    children_cats.each do |child|
+      if child.children.blank?
+        html_child = "<li><a href=\"" + category_path(child) + "\">#{child.name}</a></li>"
+      else
+        html_child =  "<li class=\"dropdown-submenu\">
+                        <a href=\"" + category_path(child) + "\">#{child.name}</a>
+                        <ul class=\"dropdown-menu\">
+                          #{generate_collapse_list_for_navbar(child)}
+                        </ul>
+                      </li>"
+      end
+      html += html_child
+    end  
+    return html
+  end
+
 end

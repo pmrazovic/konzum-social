@@ -1,7 +1,16 @@
 module HtmlHelper
-  def get_cached_categories_list(category)
+
+  def get_cached_categories_list
     Rails.cache.fetch('cached_categories') do
-      generate_collapse_list(category)      
+      html = ''
+      Category.where(:parent_id => nil).sort.each do |root_category|
+        html += "<li><label class=\"tree-toggler nav-header\"><%= root_category.name %></label>
+                  <ul class=\"nav nav-list tree\">
+                    #{generate_collapse_list(category)}
+                  </ul>
+                </li>"
+      end
+      html
     end
   end
   

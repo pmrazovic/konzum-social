@@ -9,13 +9,7 @@ $(document).ready(function () {
 <div class="well" style="padding: 8px 0;">
   <div>
     <ul class="nav nav-list">
-      <% Category.where(:parent_id => nil).sort.each do |root_category| %>
-        <li><label class="tree-toggler nav-header"><%= root_category.name %></label>
-          <ul class="nav nav-list tree">
-            <%= get_cached_categories_list(root_category).html_safe %>
-          </ul>
-        </li>
-      <% end %>
+      <%= get_cached_categories_list.html_safe %>
     </ul>
   </div>
 </div>

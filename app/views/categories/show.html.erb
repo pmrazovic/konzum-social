@@ -4,6 +4,11 @@
     <p><%= render_category_path(@category).html_safe %></p>
   <% end %>
 </div>
+
+<div class="pagination">
+  <%= will_paginate @products, :previous_label => 'Previous', :next_label => 'Next', :renderer => 'BootstrapPaginationHelper::LinkRenderer'%>
+</div>
+
 <table class="table table-striped">
   <thead>
     <tr>
@@ -17,7 +22,7 @@
   <tbody>
     <% @products.each do |product| %>
       <tr>
-        <td><%= product.name %></td>
+        <td><%= truncate product.name, :length => 65 %></td>
         <td><%= product.sales_unit_of_measure %></td>
         <td><%= number_to_currency(product.price, :unit => "HRK ", :separator => ',', :delimiter => '.') %></td>
         <td><a href=<%= product_path(product) %> class="btn btn-small"><i class="icon-info"></i> Info</a></td>

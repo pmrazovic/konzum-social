@@ -53,7 +53,7 @@
           </div>
         </div>
       </td>
-      <td><%= product.name %></td>
+      <td><%= truncate product.name, :length => 50 %></td>
       <td><%= number_to_currency(product.price, :unit => "HRK ", :separator => ',', :delimiter => '.') %></td>
       <td><a href=<%= product_path(product) %> class="btn btn-small"><i class="icon-info"></i> Info</a></td>
       <td><a href="#" class="btn btn-primary btn-small"><i class="icon-shopping-cart"></i> Add to cart</a></td>

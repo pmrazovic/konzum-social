@@ -59,7 +59,7 @@ module HtmlHelper
       html = ''
       Category.where(:parent_id => nil).sort.each do |root_category|
         html += "<li class=\"dropdown-submenu\">
-                        <a href=\"#\">#{root_category.name}</a>
+                        <a href=\"" + category_path(root_category) + "\">#{root_category.name}</a>
                         <ul class=\"dropdown-menu\">
                           #{generate_collapse_list_for_navbar(root_category)}
                         </ul>

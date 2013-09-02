@@ -1,0 +1,63 @@
+<ul class="thumbnails">
+  <li class="span12 clearfix">
+    <div class="thumbnail clearfix">
+      <%= image_tag 'image_unavailable_gray.png', :class => 'pull-left span3 clearfix', :style => 'margin-right:10px' %>
+      <div class="caption" class="pull-left">
+        <a href="#" class="btn btn-primary pull-right"><i class="icon-shopping-cart"></i> Add to cart</a>
+        <h4>      
+          <%= @product.name %>
+        </h4>
+        <small><b>Price: </b><%= number_to_currency(@product.price, :unit => "HRK ", :separator => ',', :delimiter => '.') %></small><br />
+        <small><b>Sales unit of measure: </b><%= @product.sales_unit_of_measure %></small><br />
+        <small><b>Manufacturer: </b><%= @product.manufacturer %></small><br />
+        <small><b>Supplier: </b><%= @product.supplier %></small><br />
+        <small><b>Product description: </b><%= @product.description %></small><br />
+        <div class="btn-toolbar">
+          <div class="btn-group">
+            <a href="#" class="btn btn-success" title="Like"><i class="icon-white icon-thumbs-up"></i></a>
+            <a href="#" class="btn btn-success" title="Favorites"><i class="icon-white icon-heart"></i></a>
+            <a href="#" class="btn btn-success" title="Share"><i class="icon-white icon-share-alt"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </li>  
+</ul>
+
+<blockquote>
+  <p><%= link_to '5', '#' %> of your friends bought this product.</p>
+</blockquote>
+
+<blockquote>
+  <p><%= link_to '3', '#' %> of your friends liked this product.</p>
+</blockquote>
+
+<blockquote>
+  <p><%= link_to '6', '#' %> of your friends added this product in favorites.</p>
+</blockquote>
+
+<blockquote style="margin-top: 40px;">
+  <p>Friends who bought this product also bought:</p>
+</blockquote>
+<table class="table table-striped">
+
+  <tbody>
+    <% Product.all.limit(5).each do |product| %>
+    <tr>
+      <td style="vertical-align:middle">
+        <div>
+          Relevance: <span class="pull-right strong">75%</span>
+          <div class="progress">
+            <div class="bar" style="width: 75%;"></div>
+          </div>
+        </div>
+      </td>
+      <td style="vertical-align:middle"><%= product.name %></td>
+      <td style="vertical-align:middle"><%= number_to_currency(product.price, :unit => "HRK ", :separator => ',', :delimiter => '.') %></td>
+      <td style="vertical-align:middle"><a href=<%= product_path(product) %> class="btn btn-small"><i class="icon-info"></i> Info</a></td>
+      <td style="vertical-align:middle"><a href="#" class="btn btn-primary btn-small"><i class="icon-shopping-cart"></i> Add to cart</a></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+

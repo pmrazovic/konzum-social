@@ -4,6 +4,7 @@ KonzumSocial::Application.routes.draw do
   resources :authentications
   resources :dashboard
   resources :categories
+  resources :products
 
   root :to => "dashboard#index"
 

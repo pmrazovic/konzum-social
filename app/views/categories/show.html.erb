@@ -10,8 +10,8 @@
       <th>Product name</th>
       <th>Unit of measure</th>
       <th>Price</th>
-      <td></th>
-      <td></th>
+      <th></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -20,7 +20,7 @@
         <td><%= product.name %></td>
         <td><%= product.sales_unit_of_measure %></td>
         <td><%= number_to_currency(product.price, :unit => "HRK ", :separator => ',', :delimiter => '.') %></td>
-        <td><a href="#" class="btn btn-small"><i class="icon-info"></i> Info</a></td>
+        <td><a href=<%= product_path(product) %> class="btn btn-small"><i class="icon-info"></i> Info</a></td>
         <td><a href="#" class="btn btn-primary btn-small"><i class="icon-shopping-cart"></i> Add to cart</a>
         <td>
       </tr>

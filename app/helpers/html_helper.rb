@@ -4,9 +4,9 @@ module HtmlHelper
     Rails.cache.fetch('cached_categories') do
       html = ''
       Category.where(:parent_id => nil).sort.each do |root_category|
-        html += "<li><label class=\"tree-toggler nav-header\"><%= root_category.name %></label>
+        html += "<li><label class=\"tree-toggler nav-header\">#{root_category.name}</label>
                   <ul class=\"nav nav-list tree\">
-                    #{generate_collapse_list(category)}
+                    #{generate_collapse_list(root_category)}
                   </ul>
                 </li>"
       end
@@ -45,10 +45,12 @@ module HtmlHelper
   end
 
   def render_category_path(category)
-    if category.parent.nil?
-      return "<a href=\"" + category_path(category) + "\">#{category.name}</a>"
-    else
-      return render_category_path(category.parent) + " <i class=\"icon-angle-right\"></i> <a href=\"" + category_path(category) + "\">#{category.name}</a>"
-    end    
+    Rails.cache.fetch('category_path') do
+      if category.parent.nil?
+        return "<a href=\"" + category_path(category) + "\">#{category.name}</a>"
+      else
+        return render_category_path(category.parent) + " <i class=\"icon-angle-right\"></i> <a href=\"" + category_path(category) + "\">#{category.name}</a>"
+      end    
+    end
   end
 end

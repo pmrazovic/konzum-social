@@ -1,22 +1,28 @@
-<div class="well" style="text-align: center;">
-  <h5 class="muted"><%= image_tag 'shopping-cart.png' %> Your Konzum cart</h5>
+<% unless @cart.cart_items.blank? %>
   <table class="table table-condensed" style="font-size: small;">
+    <% @cart.cart_items.sort.each do |item|%>
+      <% if item == @current_item %>
+        <tr id="current_item">
+      <% else %>
+        <tr>
+      <% end %>
+          <td><%= item.quantity %> &times; <%= item.product.name %></td>
+          <td><%= number_to_currency(item.product.price * item.quantity, :separator => ',', :delimiter => '.', :unit => '') %></td>
+          <td><%= link_to "<i class=\"icon-remove\"></i>".html_safe, cart_item_path(item), :method => :delete, :remote => true %>
+      </tr>
+    <% end %>
     <tr>
-      <td>Example product 1</td>
-      <td>101 kn</td>
-      <td><a href="#" title="Remove from cart"><i class="icon-remove"></i></a></td>
-    </tr>
-    <tr>
-      <td>Product 2</td>
-      <td>102 kn</td>
-      <td><a href="#" title="Remove from cart"><i class="icon-remove"></i></a></td>
-    </tr>
-    <tr>
-      <td>Product 3</td>
-      <td>103 kn</td>
-      <td><a href="#" title="Remove from cart"><i class="icon-remove"></i></a></td>
+      <th>Total:</th>
+      <th><%= number_to_currency(@cart.total_amount, :separator => ',', :delimiter => '.', :unit => '') %><th>
     </tr>
   </table>
-  <a href="#" class="btn btn-primary"><i class="icon-shopping-cart"></i> Checkout</a>
-  <a href="#" class="btn btn-danger"><i class="icon-trash"></i> Empty cart</a>
+<% else %>
+  <div class="well">
+    <small>Your cart is currently empty.</small>
+  </div>
+<% end %>
+
+<div class="btn-group">
+  <%= link_to "<i class=\"icon-shopping-cart\"> Checkout</i>".html_safe, "#", :class => "btn btn-primary", :disabled => @cart.cart_items.blank? %>
+  <%= link_to "<i class=\"icon-trash\"> Empty cart</i>".html_safe, cart_path(@cart), :class => "btn btn-danger", :method => :delete, :disabled => @cart.cart_items.blank? %>
 </div>

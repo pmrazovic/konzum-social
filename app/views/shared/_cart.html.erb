@@ -7,7 +7,7 @@
         <tr>
       <% end %>
           <td><%= item.quantity %> &times; <%= item.product.name %></td>
-          <td><%= number_to_currency(item.product.price * item.quantity, :separator => ',', :delimiter => '.', :unit => '') %></td>
+          <td><%= "#{item.product.price} x #{item.quantity}" %></td>
           <td><%= link_to "<i class=\"icon-remove\"></i>".html_safe, cart_item_path(item), :method => :delete, :remote => true %>
       </tr>
     <% end %>

@@ -20,6 +20,6 @@
 
 <div id="popover_content_fwb" style="display: none">
     <% @product.bought_by_friends(current_user).each do |friend| %>
-        <%= link_to (image_tag friend.profile_picture('square'), :class => "imageClip"), profile_user_path(friend), :class => "thumbnail", :style => "width: 50px; height: 50px;", :title => friend.full_name %>
+        <%= link_to (image_tag friend.profile_picture('square'), :class => "imageClip"), profile_user_path(friend), :class => "thumbnail", :style => "width: 50px; height: 50px; display: inline-block;", :title => friend.full_name %>
     <% end %>
 </div>

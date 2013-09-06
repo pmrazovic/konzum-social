@@ -1,3 +1,12 @@
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('a[disabled=disabled]').click(function(event){
+        event.preventDefault();
+        return false; // Prevent link from following its href
+    });
+  });
+</script>
+
 <% unless @cart.cart_items.blank? %>
   <table class="table table-condensed" style="font-size: small;">
     <% @cart.cart_items.sort.each do |item|%>
@@ -23,6 +32,8 @@
 <% end %>
 
 <div class="btn-group">
-  <%= link_to "<i class=\"icon-shopping-cart\"> Checkout</i>".html_safe, "#", :class => "btn btn-primary", :disabled => @cart.cart_items.blank? %>
-  <%= link_to "<i class=\"icon-trash\"> Empty cart</i>".html_safe, cart_path(@cart), :class => "btn btn-danger", :method => :delete, :disabled => @cart.cart_items.blank? %>
+  <%= link_to "<i class=\"icon-shopping-cart\"> Checkout</i>".html_safe, "#orderModal", :class => "btn btn-primary", :id => @cart.cart_items.blank? ? "" : "checkout", :data_toggle => "modal", :disabled => @cart.cart_items.blank? %>
+  <%= link_to "<i class=\"icon-trash\"> Empty cart</i>".html_safe, cart_path(@cart), :class => "btn btn-danger", :id => "empty-cart", :method => :delete, :disabled => @cart.cart_items.blank? %>
 </div>
+
+<%= render :partial => "shared/order_modal" %>

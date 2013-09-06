@@ -14,4 +14,18 @@ class CartsController < ApplicationController
     end
   end
 
+  def checkout 
+    @cart = Cart.find(params[:id])
+    @order = Order.new(:user => current_user)
+    @order.add_products(@cart)
+    @order.save
+    @cart.destroy
+
+    respond_to do |format|
+      format.html { redirect_to :back, notice: 'Thank you for your order.' }
+      format.json { head :ok }
+    end
+
+  end
+
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130903211744) do
+ActiveRecord::Schema.define(version: 20130905171659) do
 
   create_table "authentications", force: true do |t|
     t.integer  "user_id"
@@ -43,6 +43,18 @@ ActiveRecord::Schema.define(version: 20130903211744) do
   create_table "categories_products", id: false, force: true do |t|
     t.integer "category_id"
     t.integer "product_id"
+  end
+
+  create_table "order_items", force: true do |t|
+    t.integer "order_id"
+    t.integer "product_id"
+    t.integer "quantity"
+  end
+
+  create_table "orders", force: true do |t|
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "products", force: true do |t|

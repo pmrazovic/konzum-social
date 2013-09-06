@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   # :lockable, :timeoutable and :omniauthable
   has_many :authentications, :dependent => :destroy
   has_one :cart
+  has_many :orders
   devise :database_authenticatable, :registerable, :omniauthable,
          :recoverable, :rememberable, :trackable, :validatable
          
@@ -42,6 +43,10 @@ class User < ActiveRecord::Base
     authentications.where(:provider => 'facebook').first
   end
 
+  def friends
+    friends_from_facebook
+  end
+
   def friends_from_facebook
     graph = Koala::Facebook::API.new(facebook_authentication.token)
     friends = graph.get_connections('me', 'friends')
@@ -53,13 +58,17 @@ class User < ActiveRecord::Base
     return friends_from_facebook
   end
 
-  def profile_picture
+  def profile_picture(type)
     if connected_with_facebook?
       graph = Koala::Facebook::API.new(facebook_authentication.token)      
-      return graph.get_picture('me', :type => 'large')
+      return graph.get_picture('me', :type => type)
     else
       return gender == 'M' ? 'user-icon-male.png' : 'user-icon-female.png'
     end
+  end
+
+  def bought_products
+    orders.collect{|o| o.order_items.collect{|item| item.product}}.flatten.uniq
   end
 
 end

@@ -5,8 +5,18 @@ KonzumSocial::Application.routes.draw do
   resources :dashboard
   resources :categories
   resources :products
-  resources :carts
+  resources :users do
+    member do
+      get 'profile'
+    end
+  end
+  resources :carts do
+    member do
+      post 'checkout'
+    end
+  end
   resources :cart_items
+  resources :orders
 
   root :to => "dashboard#index"
 

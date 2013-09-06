@@ -1,0 +1,26 @@
+<div class="span3"> 
+  <div class="span12 well well-large">
+    <%= image_tag @user.profile_picture('large'), :class => "span12 img-polaroid profile" %>
+    <h4><%= @user.full_name %></h4>
+    <hr class="profile">
+    <p class="muted"><i class="icon-envelope-alt"></i> E-mail </p>
+    <p><%= @user.email %></p>
+    <p class="muted"><i class="icon-time"></i> Joined on </p>
+    <p><%= @user.created_at.strftime("%B %d, %Y") %></p>
+    <hr class="profile">
+    <p class="muted" style="text-align: center"><i class="icon-group"></i> Friends </p>
+    <% if @user.connected_with_facebook? %>
+      <h3 style="text-align: center"><%= @user.friends_from_facebook.length %></h3>
+    <% else %>
+      <h3 style="text-align: center">0</h3>
+    <% end %>
+  </div>
+</div>
+<div class="span9">
+  <div class="span12 well well-large">
+    <h2>Welcome <%= @user.full_name %></h2>
+    <h5>This dashboard page is under construction...</h5>
+    <%= link_to "Logout", destroy_user_session_path, :method => :delete %> | 
+    <%= link_to "Edit account", edit_user_registration_path %>
+  </div>
+</div>

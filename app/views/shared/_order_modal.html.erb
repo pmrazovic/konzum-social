@@ -1,0 +1,38 @@
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("#checkout").click(function(){
+      if ($(this).prop('disabled', 'disabled')) {
+        $("#orderModal").modal('show');
+      };
+    });
+  });
+</script>
+
+<div id="orderModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Confirm order</h3>
+  </div>
+  <div class="modal-body">
+    <p>This is only a test application for generating product recommendations, and your order will not be processed nor charged. Please confirm your order.</p>
+    <h5>Products in your cart:</h5>
+    <% unless @cart.cart_items.blank? %>
+      <table class="table table-striped" style="font-size: small;">
+        <% @cart.cart_items.sort.each do |item|%>
+          <tr>
+            <td><%= item.quantity %> &times; <%= item.product.name %></td>
+            <td><%= number_to_currency(item.product.price * item.quantity, :separator => ',', :delimiter => '.', :unit => '') %></td>
+          </tr>
+        <% end %>
+        <tr>
+          <th>Total:</th>
+          <th><%= number_to_currency(@cart.total_amount, :separator => ',', :delimiter => '.', :unit => 'HRK ') %><th>
+        </tr>
+      </table>
+    <% end %>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true"><i class="icon-remove"> Cancel</i></button>
+    <%= link_to "<i class=\"icon-ok\"> Confirm</i>".html_safe, checkout_cart_path(@cart), :class => "btn btn-primary", :method => :post %>
+  </div>
+</div>

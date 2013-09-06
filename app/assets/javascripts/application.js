@@ -15,10 +15,3 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
-
-$(document).ready(function() {
-    $('a[disabled=disabled]').click(function(event){
-        event.preventDefault();
-        return false; // Prevent link from following its href
-    });
-});

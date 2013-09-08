@@ -12,8 +12,8 @@
         <tr>
           <td><%= request.user.first_name %></td>
           <td><%= request.user.last_name %></td>
-          <td><%= link_to "<i class=\"icon-ok\"> Accept</i>".html_safe, friendships_path(friend_id: request.user.id), method: :post, :class => "btn btn-small" %></td>            
-          <td><%= link_to "<i class=\"icon-remove\"> Reject</i>".html_safe, friendships_path(friend_id: request.user.id), method: :destroy, :class => "btn btn-small" %></td>  
+          <td><%= link_to "<i class=\"icon-ok\"> Accept</i>".html_safe, friendship_path(friend_id: request.user.id), method: :put, :class => "btn btn-small" %></td>            
+          <td><%= link_to "<i class=\"icon-remove\"> Reject</i>".html_safe, friendship_path(friend_id: request.user.id), method: :delete, :class => "btn btn-small" %></td>  
         </tr>
         <% end %>
         <% end %>
@@ -40,7 +40,7 @@
           <% if status == 'None' %>
             <td><%= link_to "<i class=\"icon-plus\"> Friend</i>".html_safe, friendships_path(friend_id: user), method: :post, :class => "btn btn-small" %></td>
           <% else %>
-            <td><%= link_to "<i class=\"icon-minus\"> Remove</i>".html_safe, friendships_path(friend_id: user), method: :destroy, :class => "btn btn-small" %></td>            
+            <td><%= link_to "<i class=\"icon-minus\"> Remove</i>".html_safe, friendship_path(friend_id: user), method: :delete, :class => "btn btn-small" %></td>            
           <% end %>
         </tr>
       <%end%>

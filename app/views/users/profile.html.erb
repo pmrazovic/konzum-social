@@ -1,21 +1,5 @@
-<div class="span3"> 
-  <div class="span12 well well-large">
-    <%= image_tag @user.profile_picture('large'), :class => "span12 img-polaroid profile" %>
-    <h4><%= @user.full_name %></h4>
-    <hr class="profile">
-    <p class="muted"><i class="icon-envelope-alt"></i> E-mail </p>
-    <p><%= @user.email %></p>
-    <p class="muted"><i class="icon-time"></i> Joined on </p>
-    <p><%= @user.created_at.strftime("%B %d, %Y") %></p>
-    <hr class="profile">
-    <p class="muted" style="text-align: center"><i class="icon-group"></i> Friends </p>
-    <% if @user.connected_with_facebook? %>
-      <h3 style="text-align: center"><%= @user.friends_from_facebook.length %></h3>
-    <% else %>
-      <h3 style="text-align: center">0</h3>
-    <% end %>
-  </div>
-</div>
+<%= render 'user_sideinfo' %>
+
 <div class="span9">
   <div class="span12 well well-large">
     <h2>Welcome <%= @user.full_name %></h2>
@@ -23,4 +7,28 @@
     <%= link_to "Logout", destroy_user_session_path, :method => :delete %> | 
     <%= link_to "Edit account", edit_user_registration_path %>
   </div>
+</div>
+<div class="pagination">
+  <%= will_paginate @users, :previous_label => 'Previous', :next_label => 'Next', :renderer => 'BootstrapPaginationHelper::LinkRenderer'%>
+</div>
+
+<table class="span9 table table-striped">
+<thead>
+  <th>Name</th>
+  <th>Lastname</th>
+  <th>Status</th>
+</thead>
+<tbody>
+<% @users.each do |user| %>
+  <tr>
+    <td><%= user.first_name %></td>
+    <td><%= user.last_name %></td>
+    <td><%= friendship_status_for user %></td>
+    <td><%= link_to "<i class=\"icon-plus\"> Friend</i>".html_safe, friendships_path(friend_id: user), method: :post, :class => "btn btn-small" %></td>
+  </tr>
+  <% end %>
+</tbody>
+</table>
+<div class="pagination">
+  <%= will_paginate @users, :previous_label => 'Previous', :next_label => 'Next', :renderer => 'BootstrapPaginationHelper::LinkRenderer'%>
 </div>

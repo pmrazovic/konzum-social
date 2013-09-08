@@ -17,7 +17,7 @@ KonzumSocial::Application.routes.draw do
   end
   resources :cart_items
   resources :orders
-
+  resources :friendships
   root :to => "dashboard#index"
 
   # The priority is based upon order of creation: first created -> highest priority.

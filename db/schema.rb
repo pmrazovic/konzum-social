@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130905171659) do
+ActiveRecord::Schema.define(version: 20130908084435) do
 
   create_table "authentications", force: true do |t|
     t.integer  "user_id"
@@ -43,6 +43,14 @@ ActiveRecord::Schema.define(version: 20130905171659) do
   create_table "categories_products", id: false, force: true do |t|
     t.integer "category_id"
     t.integer "product_id"
+  end
+
+  create_table "friendships", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "friend_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "pending"
   end
 
   create_table "order_items", force: true do |t|

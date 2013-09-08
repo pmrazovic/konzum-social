@@ -5,12 +5,16 @@ class User < ActiveRecord::Base
   has_many :authentications, :dependent => :destroy
   has_one :cart
   has_many :orders
+  has_many :friendships
+  has_many :friends, :through => :friendships
   devise :database_authenticatable, :registerable, :omniauthable,
          :recoverable, :rememberable, :trackable, :validatable
          
   validates :first_name, :presence => true
   validates :last_name, :presence => true
   validates :gender, :inclusion => {:in => ['M', 'F']}
+
+  scope :without_user, lambda{|user| user ? {:conditions => ["id != ?", user.id]} : {} }
 
   def password_required?
     (authentications.empty? || !password.blank?) && super
@@ -45,6 +49,7 @@ class User < ActiveRecord::Base
 
   def friends
     friends_from_facebook
+
   end
 
   def friends_from_facebook

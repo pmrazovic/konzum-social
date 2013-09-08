@@ -4,31 +4,49 @@
   <div class="span12 well well-large">
     <h2>Welcome <%= @user.full_name %></h2>
     <h5>This dashboard page is under construction...</h5>
+    <h5>Friend requests:</h5>
+    <table class="table table-striped">
+      <tbody>
+        <% current_user.inverse_friendships.each do |request| %>
+        <% if request.pending %>
+        <tr>
+          <td><%= request.user.first_name %></td>
+          <td><%= request.user.last_name %></td>
+          <td><%= link_to "<i class=\"icon-ok\"> Accept</i>".html_safe, friendships_path(friend_id: request.user.id), method: :post, :class => "btn btn-small" %></td>            
+          <td><%= link_to "<i class=\"icon-remove\"> Reject</i>".html_safe, friendships_path(friend_id: request.user.id), method: :destroy, :class => "btn btn-small" %></td>  
+        </tr>
+        <% end %>
+        <% end %>
+      </tbody>
+    </table>
     <%= link_to "Logout", destroy_user_session_path, :method => :delete %> | 
     <%= link_to "Edit account", edit_user_registration_path %>
   </div>
 </div>
-<div class="pagination">
-  <%= will_paginate @users, :previous_label => 'Previous', :next_label => 'Next', :renderer => 'BootstrapPaginationHelper::LinkRenderer'%>
-</div>
 
 <table class="span9 table table-striped">
-<thead>
-  <th>Name</th>
-  <th>Lastname</th>
-  <th>Status</th>
-</thead>
-<tbody>
-<% @users.each do |user| %>
-  <tr>
-    <td><%= user.first_name %></td>
-    <td><%= user.last_name %></td>
-    <td><%= friendship_status_for user %></td>
-    <td><%= link_to "<i class=\"icon-plus\"> Friend</i>".html_safe, friendships_path(friend_id: user), method: :post, :class => "btn btn-small" %></td>
-  </tr>
-  <% end %>
-</tbody>
+  <thead>
+    <th>Name</th>
+    <th>Lastname</th>
+    <th>Status</th>
+  </thead>
+  <tbody>
+    <% @other_users.each do |user| %>
+      <%unless friendship_status(user, current_user) =='Pending' %>      
+        <tr>
+          <td><%= user.first_name %></td>
+          <td><%= user.last_name %></td>
+          <td><%= status = friendship_status(current_user, user) %></td>
+          <% if status == 'None' %>
+            <td><%= link_to "<i class=\"icon-plus\"> Friend</i>".html_safe, friendships_path(friend_id: user), method: :post, :class => "btn btn-small" %></td>
+          <% else %>
+            <td><%= link_to "<i class=\"icon-minus\"> Remove</i>".html_safe, friendships_path(friend_id: user), method: :destroy, :class => "btn btn-small" %></td>            
+          <% end %>
+        </tr>
+      <%end%>
+    <% end %>
+  </tbody>
 </table>
 <div class="pagination">
-  <%= will_paginate @users, :previous_label => 'Previous', :next_label => 'Next', :renderer => 'BootstrapPaginationHelper::LinkRenderer'%>
+  <%= will_paginate @other_users, :previous_label => 'Previous', :next_label => 'Next', :renderer => 'BootstrapPaginationHelper::LinkRenderer'%>
 </div>

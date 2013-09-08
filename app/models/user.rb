@@ -7,14 +7,15 @@ class User < ActiveRecord::Base
   has_many :orders
   has_many :friendships
   has_many :friends, :through => :friendships
+  has_many :inverse_friendships, :class_name => "Friendship", :foreign_key => "friend_id"
+  has_many :inverse_friends, :through => :inverse_friendships, :source => :user
+
   devise :database_authenticatable, :registerable, :omniauthable,
          :recoverable, :rememberable, :trackable, :validatable
          
   validates :first_name, :presence => true
   validates :last_name, :presence => true
   validates :gender, :inclusion => {:in => ['M', 'F']}
-
-  scope :without_user, lambda{|user| user ? {:conditions => ["id != ?", user.id]} : {} }
 
   def password_required?
     (authentications.empty? || !password.blank?) && super
@@ -47,10 +48,9 @@ class User < ActiveRecord::Base
     authentications.where(:provider => 'facebook').first
   end
 
-  def friends
-    friends_from_facebook
-
-  end
+  # def friends
+  #   friends_from_facebook
+  # end
 
   def friends_from_facebook
     graph = Koala::Facebook::API.new(facebook_authentication.token)

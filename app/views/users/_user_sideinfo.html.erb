@@ -9,10 +9,6 @@
     <p><%= @user.created_at.strftime("%B %d, %Y") %></p>
     <hr class="profile">
     <p class="muted" style="text-align: center"><i class="icon-group"></i> Friends </p>
-    <% if @user.connected_with_facebook? %>
-      <h3 style="text-align: center"><%= @user.friends_from_facebook.length %></h3>
-    <% else %>
-      <h3 style="text-align: center">0</h3>
-    <% end %>
+      <%= render :partial => 'friends_popover' %>
   </div>
 </div>

@@ -9,7 +9,7 @@ class FriendshipsController < ApplicationController
       redirect_to profile_user_url(current_user)
     else
       flash[:notice] = "Unable to add friend."
-      redirect_to profile_user_url(current_user)
+      redirect_to :back
     end
   end
 
@@ -20,7 +20,7 @@ class FriendshipsController < ApplicationController
     inverse_friendship = current_user.inverse_friendships.find_by_user_id(params[:friend_id])
     inverse_friendship.pending = false
     inverse_friendship.save
-    redirect_to profile_user_url(current_user)
+    redirect_to :back
   end
 
   # friendship -> delete, delete all friendships between 
@@ -30,7 +30,7 @@ class FriendshipsController < ApplicationController
     delete_friendship(current_user, params[:friend_id])
     delete_friendship(params[:friend_id], current_user)    
     respond_to do |format|
-      format.html { redirect_to profile_user_url(current_user), notice: 'Friendship destroyed.' }
+      format.html { redirect_to :back, notice: 'Friendship destroyed.' }
       format.json { head :ok }
     end
   end

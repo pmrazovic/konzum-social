@@ -2,7 +2,15 @@ KonzumSocial::Application.routes.draw do
   devise_for :users, path_names: {sign_in: "login", sign_out: "logout"},
               controllers: {omniauth_callbacks: "authentications"}
   resources :authentications
-  resources :dashboard
+  resources :dashboard do
+    collection do
+      get 'orders'
+      get 'friends'
+      get 'shopping_lists'
+      get 'products'
+      get 'recipes'
+    end
+  end
   resources :categories
   resources :products
   resources :users do

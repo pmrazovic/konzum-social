@@ -1,0 +1,67 @@
+<%= render :partial => "dashboard/navigation_sidebar" %>
+<div class="span9">
+  <div class="well well-small">
+    <h4 style="margin-left: 15px;"><i class="icon-group"/></i> Friends</h4>
+  </div>
+
+  <% if current_user.inverse_friendships.select{|e| e.pending }.length > 0 %>
+  <div class="alert alert-success">
+    <button type="button" class="close" data-dismiss="alert">×</button>
+    <strong>Heads up!</strong> You have <%= pluralize(current_user.inverse_friendships.select{|e| e.pending }.length, "new friend request") %>!
+  </div>
+  <% current_user.inverse_friendships.select{|e| e.pending }.each do |request| %>
+    <div class="row-fluid">
+      <div class="span12 well">
+        <div class="span1">
+          <%= link_to (image_tag request.user.profile_picture('square'), :class => "imageClip"), profile_user_path(request.user), :class => "thumbnail", :style => "width: 50px; height: 50px; display: inline-block;", :title => request.user.full_name %>   
+        </div>
+        <div class="span3">
+          <p><strong><%=  link_to request.user.full_name, profile_user_path(request.user) %></strong></p>
+          <p><%= request.user.email %></p>
+        </div>
+        <div class="span8">
+          <div class="btn-group pull-right">
+              <%= link_to "<i class=\"icon-ok\"> Accept</i>".html_safe, friendship_path(:friend_id => request.user.id, :id => current_user.id), method: :put, :class => "btn btn-primary btn-small" %>
+              <%= link_to "<i class=\"icon-remove\"> Reject</i>".html_safe, friendship_path(:friend_id => request.user.id, :id => current_user.id), method: :delete, :class => "btn btn-danger btn-small" %>
+            </div>        
+        </div>
+      </div>
+    </div>
+    <% end %>
+    <legend>Your friends</legend>
+  <% else %>
+    <div class="alert alert-info">
+      <button type="button" class="close" data-dismiss="alert">×</button>
+      You don't have any friend requests!
+    </div>
+  <% end %>
+
+  <% i = 0 %>
+  <% @friends.each do |friend| %>
+    <% if i % 2 == 0 %>
+    <div class="row-fluid">
+      <% end %>
+      <% i += 1 %>
+      <div class="span6 well">
+        <div class="row-fluid">
+          <div class="span3">
+            <%= link_to (image_tag friend.profile_picture('square'), :class => "imageClip"), profile_user_path(friend), :class => "thumbnail", :style => "width: 50px; height: 50px; display: inline-block;", :title => friend.full_name %>
+          </div>
+          <div class="span9">
+            <%= link_to "<i class=\"icon-remove\"></i>".html_safe, friendship_path(:friend_id => friend.id, :id => current_user.id), method: :delete, :class => "pull-right", :title => "Remove from friends" %>            
+            <p><strong><%= link_to friend.full_name, profile_user_path(friend) %></strong></p>
+            <p><%= friend.email %></p>
+            <span class=" badge badge-warning"><%= friend.orders.length %> orders</span> <span class=" badge badge-info"><%= friend.friends.length %> friends</span>
+          </div>
+        </div>
+      </div>
+      <% if i % 2 == 0 %>
+    </div>
+    <% end %>
+  <% end %>
+
+  <div class="pagination">
+    <%= will_paginate @friends, :previous_label => 'Previous', :next_label => 'Next', :renderer => 'BootstrapPaginationHelper::LinkRenderer'%>
+  </div>
+
+</div>

@@ -1,21 +1,4 @@
-<div class="span3"> 
-  <div class="span12 well well-large">
-    <%= image_tag current_user.profile_picture('large'), :class => "span12 img-polaroid profile" %>
-    <h4><%= current_user.full_name %></h4>
-    <hr class="profile">
-    <p class="muted"><i class="icon-envelope-alt"></i> E-mail </p>
-    <p><%= current_user.email %></p>
-    <p class="muted"><i class="icon-time"></i> Joined on </p>
-    <p><%= current_user.created_at.strftime("%B %d, %Y") %></p>
-    <hr class="profile">
-    <p class="muted" style="text-align: center"><i class="icon-group"></i> Friends </p>
-    <% if current_user.connected_with_facebook? %>
-      <h3 style="text-align: center"><%= current_user.friends_from_facebook.length %></h3>
-    <% else %>
-      <h3 style="text-align: center">0</h3>
-    <% end %>
-  </div>
-</div>
+<%= render :partial => "dashboard/navigation_sidebar" %>
 <div class="span9">
   <div class="span12 well well-large">
     <h2>Welcome <%= current_user.full_name %></h2>

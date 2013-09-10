@@ -1,0 +1,32 @@
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('a[disabled=disabled]').click(function(event){
+        event.preventDefault();
+        return false; // Prevent link from following its href
+    });
+  });
+
+  $(document).ready(function() {
+    $('#friends_list').popover({ 
+      trigger: "click",
+      html: "true",
+      content: function() {
+        return $("#popover_content_friends").html();
+      }
+    });
+  });
+
+  $("body > div:not(#popover_content_friends)").click(function(e) {
+    $('#friends_list').popover('hide');
+  });
+</script>
+
+<div style="text-align: center;">
+  <a id="friends_list" href="#" style="font-size: x-large; font-weight: bold" data-toggle="popover" data-placement="right" data-triger="click" disabled="disabled" data-content="" title="Friends"><%= @user.friends.length %></a>
+</div>
+
+<div id="popover_content_friends" style="display: none">
+    <% @user.friends.each do |friend| %>
+        <%= link_to (image_tag friend.profile_picture('square'), :class => "imageClip"), profile_user_path(friend), :class => "thumbnail", :style => "width: 50px; height: 50px; display: inline-block;", :title => friend.full_name %>
+    <% end %>
+</div>

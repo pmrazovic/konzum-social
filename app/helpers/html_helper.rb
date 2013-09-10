@@ -100,4 +100,13 @@ module HtmlHelper
     return html
   end
 
+  def friend_request_notification
+    notifications_count = current_user.inverse_friendships.select{|e| e.pending }.length
+    if notifications_count > 0
+      return "<span class=\"badge badge-info\">#{notifications_count}</span>"
+    else
+      return ""
+    end
+  end
+
 end

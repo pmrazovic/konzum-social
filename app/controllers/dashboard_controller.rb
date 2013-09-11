@@ -7,7 +7,8 @@ class DashboardController < ApplicationController
   end
 
   def orders
-    @account = current_user
+    @orders = current_user.orders.order("created_at DESC").paginate(:page => params[:page], :per_page => 15)
+
   end
 
   def friends

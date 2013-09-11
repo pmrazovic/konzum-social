@@ -7,4 +7,8 @@ class Order < ActiveRecord::Base
       order_items.build(:product_id => cart_item.product_id, :quantity => 1)
     end
   end
+
+  def total_current_amount
+    order_items.inject(0){ |sum, item| sum + item.quantity * item.product.price}
+  end
 end

@@ -13,7 +13,7 @@
           <td><%= request.user.first_name %></td>
           <td><%= request.user.last_name %></td>
           <td><%= link_to "<i class=\"icon-ok\"> Accept</i>".html_safe, friendship_path(friend_id: request.user.id), method: :put, :class => "btn btn-small" %></td>            
-          <td><%= link_to "<i class=\"icon-remove\"> Reject</i>".html_safe, friendship_path(friend_id: request.user.id), method: :delete, :class => "btn btn-small" %></td>  
+          <td><%= link_to "<i class=\"icon-remove\"> Reject</i>".html_safe, friendship_path(friend_id: request.user.id), method: :delete, :class => "btn btn-small" %></td>   
         </tr>
         <% end %>
         <% end %>

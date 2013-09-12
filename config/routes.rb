@@ -7,7 +7,8 @@ KonzumSocial::Application.routes.draw do
       get 'orders'
       get 'friends'
       get 'shopping_lists'
-      get 'products'
+      get 'liked_products'
+      get 'favorite_products'
       get 'recipes'
     end
   end

@@ -1,4 +1,4 @@
 $( "#like-button" ).data( "method", "delete" );
 $( "#like-button" ).attr( "href", "<%=j like_path(@new_like) %>" );
-$( "#like-button" ).attr( "title", "Unlike" );
+$( "#like-button" ).attr( "title", "Dislike" );
 $( "#like-notice" ).html("<div class=\"alert alert-success\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\">×</button>You like this <%=j @new_like.likeable_type.downcase %>!</div>");

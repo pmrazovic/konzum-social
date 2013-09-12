@@ -1,0 +1,36 @@
+<div class="pagination">
+  <%= will_paginate likes, :previous_label => 'Previous', :next_label => 'Next', :renderer => 'BootstrapPaginationHelper::LinkRenderer'%>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Product name</th>
+      <th>Unit</th>
+      <th>Price</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% likes.select{|e| e.likeable_type == 'PRODUCT' }.each do |like| %>
+      <tr>
+        <td><%= truncate like.product.name, :length => 65 %></td>
+        <td><%= like.product.sales_unit_of_measure %></td>
+        <td><%= number_to_currency(like.product.price, :unit => "HRK ", :separator => ',', :delimiter => '.') %></td>
+        <td>
+          <%= link_to "<i class=\"icon-info\"> Info</i>".html_safe, product_path(like.product), :class => "btn btn-small" %>
+        </td>
+        <td>
+          <%= link_to "<i class=\"icon-shopping-cart\"> Add to cart</i>".html_safe, cart_items_path(:product_id => like.product.id), :class => "btn btn-primary btn-small", :method => :post, :remote => true %>
+        <td>
+        <td><%= link_to "<i class=\"icon-remove\"></i>".html_safe, like_path(like), :method => :delete, :title => "Dislike" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<div class="pagination">
+  <%= will_paginate likes, :previous_label => 'Previous', :next_label => 'Next', :renderer => 'BootstrapPaginationHelper::LinkRenderer'%>
+</div>

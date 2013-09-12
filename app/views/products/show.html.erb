@@ -18,7 +18,7 @@
             <% if @like.nil? %>
               <%= link_to "<i class=\"icon-thumbs-up\"></i>".html_safe, likes_path(:likeable_id => @product.id, :likeable_type => "PRODUCT"), :id => "like-button", :class => "btn btn-success", :title => "Like", :method => :post, 'data-toggle' => "button", :remote => true %>
             <% else %>
-              <%= link_to "<i class=\"icon-thumbs-up\"></i>".html_safe, like_path(@like), :id => "like-button", :class => "btn btn-success active", :title => "Unlike", :method => :delete, 'data-toggle' => "button", :remote => true %>
+              <%= link_to "<i class=\"icon-thumbs-up\"></i>".html_safe, like_path(@like), :id => "like-button", :class => "btn btn-success active", :title => "Dislike", :method => :delete, 'data-toggle' => "button", :remote => true %>
             <% end %>
             <% if @favorite.nil? %>
               <%= link_to "<i class=\"icon-heart\"></i>".html_safe, favorites_path(:product_id => @product.id), :id => "favorite-button", :class => "btn btn-success", :title => "Add to favorites", :method => :post, 'data-toggle' => "button", :remote => true %>

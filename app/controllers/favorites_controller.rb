@@ -6,7 +6,7 @@ class FavoritesController < ApplicationController
                                  :product_id => params[:product_id])
     @new_favorite.save
     respond_to do |format|
-      format.html { redirect_to :back, :notice => 'Added to favorites.' }
+      format.html { redirect_to :back, :fav_notice => 'Added to favorites.' }
       format.js {render :action => 'create.js.erb'}
     end
   end
@@ -17,7 +17,7 @@ class FavoritesController < ApplicationController
     @product_id = favorite.product_id
     favorite.destroy
     respond_to do |format|
-      format.html { redirect_to :back, :notice => "Product #{ActionController::Base.helpers.link_to product.name, product_path(product)} removed from favorites." }
+      format.html { redirect_to :back, :fav_notice => "Product #{ActionController::Base.helpers.link_to product.name, product_path(product)} removed from favorites." }
       format.js {render :action => 'destroy.js.erb'}
     end
   end

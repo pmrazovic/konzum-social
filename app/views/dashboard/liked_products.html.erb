@@ -4,7 +4,7 @@
     <h4 style="margin-left: 15px;"><i class="icon-thumbs-up"/></i> Liked products</h4>
   </div>
 
-  <% unless flash[:notice].blank? %>
+  <% unless flash[:like_notice].blank? %>
     <div class="alert alert-success">
       <button type="button" class="close" data-dismiss="alert">&times;</button>
       <%= flash[:notice].html_safe %>

@@ -7,7 +7,7 @@ class LikesController < ApplicationController
                         :likeable_type => params[:likeable_type])
     @new_like.save
     respond_to do |format|
-      format.html { redirect_to :back, :notice => 'Item liked.' }
+      format.html { redirect_to :back, :like_notice => 'Item liked.' }
       format.js {render :action => 'create.js.erb'}
     end
   end
@@ -20,7 +20,7 @@ class LikesController < ApplicationController
     @likeable_type = like.likeable_type
     like.destroy
     respond_to do |format|
-      format.html { redirect_to :back, :notice => product.nil? ? 'Item successfuly disliked.' : "Product #{ActionController::Base.helpers.link_to product.name, product_path(product)} successfuly disliked." }
+      format.html { redirect_to :back, :like_notice => product.nil? ? 'Item successfuly disliked.' : "Product #{ActionController::Base.helpers.link_to product.name, product_path(product)} successfuly disliked." }
       format.js {render :action => 'destroy.js.erb'}
     end
   end

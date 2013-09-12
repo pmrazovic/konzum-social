@@ -4,7 +4,7 @@
     <h4 style="margin-left: 15px;"><i class="icon-heart"/></i> Favorites</h4>
   </div>
 
-  <% unless flash[:notice].blank? %>
+  <% unless flash[:fav_notice].blank? %>
     <div class="alert alert-success">
       <button type="button" class="close" data-dismiss="alert">&times;</button>
       <%= flash[:notice].html_safe %>

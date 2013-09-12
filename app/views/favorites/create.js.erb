@@ -1,0 +1,4 @@
+$( "#favorite-button" ).data( "method", "delete" );
+$( "#favorite-button" ).attr( "href", "<%=j favorite_path(@new_favorite) %>" );
+$( "#favorite-button" ).attr( "title", "Remove from favorites" );
+$( "#favorite-notice" ).html("<div class=\"alert alert-success\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\">×</button>Product is successfuly added to favorites!</div>");

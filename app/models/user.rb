@@ -9,6 +9,8 @@ class User < ActiveRecord::Base
   has_many :friends, :through => :friendships
   has_many :inverse_friendships, :class_name => "Friendship", :foreign_key => "friend_id"
   has_many :inverse_friends, :through => :inverse_friendships, :source => :user
+  has_many :likes, :dependent => :destroy
+  has_many :favorites, :dependent => :destroy
 
   devise :database_authenticatable, :registerable, :omniauthable,
          :recoverable, :rememberable, :trackable, :validatable
@@ -74,6 +76,14 @@ class User < ActiveRecord::Base
 
   def bought_products
     orders.collect{|o| o.order_items.collect{|item| item.product}}.flatten.uniq
+  end
+
+  def liked_products
+    likes.select{|e| e.likeable_type == "PRODUCT"}.uniq.collect{|e| Product.find(e.likeable_id)}
+  end
+
+  def favorized_products
+    favorites.collect{|e| e.product}
   end
 
 end

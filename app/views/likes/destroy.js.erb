@@ -1,0 +1,4 @@
+$( "#like-button" ).data( "method", "post" );
+$( "#like-button" ).attr( "href", "<%=j likes_path(:likeable_id => @likeable_id, :likeable_type => @likeable_type) %>" );
+$( "#like-button" ).attr( "title", "Like" );
+$( "#like-notice" ).html("<div class=\"alert alert-error\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\">×</button>You don't like this <%=j @likeable_type.downcase %>!</div>");

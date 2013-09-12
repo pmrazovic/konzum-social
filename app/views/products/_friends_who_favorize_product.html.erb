@@ -1,0 +1,36 @@
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('a[disabled=disabled]').click(function(event){
+        event.preventDefault();
+        return false; // Prevent link from following its href
+    });
+  });
+
+  $(document).ready(function() {
+    $('#friends_favorized_this').popover({ 
+      trigger: "click",
+      html: "true",
+      content: function() {
+        return $("#popover_content_fwf").html();
+      }
+    });
+  });
+
+  $("body > div:not(#popover_content_fwf)").click(function(e) {
+    $('#friends_favorized_this').popover('hide');
+  });
+</script>
+
+<blockquote>
+  <% if @product.favorized_by_friends(current_user).length > 0 %>
+    <p><a id="friends_favorized_this" href="#" data-toggle="popover" data-placement="bottom" data-triger="click" disabled="disabled" data-content="" title="Friends who added this product in favorites"><%= @product.favorized_by_friends(current_user).length %></a> of your friends added this product in favorites.</p>
+  <% else %>
+    <p><i><strong>None</strong></i> of your friends added this product in favorites.</p>
+  <% end %>
+</blockquote> 
+
+<div id="popover_content_fwf" style="display: none">
+    <% @product.favorized_by_friends(current_user).each do |friend| %>
+        <%= link_to (image_tag friend.profile_picture('square'), :class => "imageClip"), profile_user_path(friend), :class => "thumbnail", :style => "width: 50px; height: 50px; display: inline-block;", :title => friend.full_name %>
+    <% end %>
+</div>

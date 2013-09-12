@@ -1,0 +1,4 @@
+$( "#favorite-button" ).data( "method", "post" );
+$( "#favorite-button" ).attr( "href", "<%=j favorites_path(:product_id => @product_id) %>" );
+$( "#favorite-button" ).attr( "title", "Add to favorites" );
+$( "#favorite-notice" ).html("<div class=\"alert alert-error\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\">×</button>Product is removed from favorites!</div>");

@@ -15,8 +15,16 @@
         <small><b>Product description: </b><%= @product.description %></small><br />
         <div class="btn-toolbar">
           <div class="btn-group">
-            <a href="#" class="btn btn-success" title="Like"><i class="icon-white icon-thumbs-up"></i></a>
-            <a href="#" class="btn btn-success" title="Favorites"><i class="icon-white icon-heart"></i></a>
+            <% if @like.nil? %>
+              <%= link_to "<i class=\"icon-thumbs-up\"></i>".html_safe, likes_path(:likeable_id => @product.id, :likeable_type => "PRODUCT"), :id => "like-button", :class => "btn btn-success", :title => "Like", :method => :post, 'data-toggle' => "button", :remote => true %>
+            <% else %>
+              <%= link_to "<i class=\"icon-thumbs-up\"></i>".html_safe, like_path(@like), :id => "like-button", :class => "btn btn-success active", :title => "Unlike", :method => :delete, 'data-toggle' => "button", :remote => true %>
+            <% end %>
+            <% if @favorite.nil? %>
+              <%= link_to "<i class=\"icon-heart\"></i>".html_safe, favorites_path(:product_id => @product.id), :id => "favorite-button", :class => "btn btn-success", :title => "Add to favorites", :method => :post, 'data-toggle' => "button", :remote => true %>
+            <% else %>
+              <%= link_to "<i class=\"icon-heart\"></i>".html_safe, favorite_path(@favorite), :id => "favorite-button", :class => "btn btn-success active", :title => "Remove from favorites", :method => :delete, 'data-toggle' => "button", :remote => true %>
+            <% end %>
             <a href="#" class="btn btn-success" title="Share"><i class="icon-white icon-share-alt"></i></a>
           </div>
         </div>
@@ -25,15 +33,14 @@
   </li>  
 </ul>
 
+<div id="like-notice">
+</div>
+<div id="favorite-notice">
+</div>
+
 <%= render :partial => 'friends_who_bought_product' %>
-
-<blockquote>
-  <p><%= link_to '3', '#' %> of your friends liked this product.</p>
-</blockquote>
-
-<blockquote>
-  <p><%= link_to '6', '#' %> of your friends added this product in favorites.</p>
-</blockquote>
+<%= render :partial => 'friends_who_liked_product' %>
+<%= render :partial => 'friends_who_favorize_product' %>
 
 <blockquote style="margin-top: 40px;">
   <p>Friends who bought this product also bought:</p>

@@ -3,6 +3,8 @@ class Product < ActiveRecord::Base
   has_many :cart_items
   has_many :order_items
   has_and_belongs_to_many :categories
+  has_many :likes, :as => :likeable, :dependent => :destroy
+  has_many :favorites, :dependent => :destroy
 
   def bought_by_user?(user)
     user.bought_products.include?(self)
@@ -16,4 +18,27 @@ class Product < ActiveRecord::Base
     user.friends.select{|friend| bought_by_user?(friend)}
   end
 
+  def liked_by_user?(user)
+    user.liked_products.include?(self)
+  end
+
+  def liked_by
+    User.all.select{|user| user.liked_products.include?(self)}
+  end
+
+  def liked_by_friends(user)
+    user.friends.select{|friend| liked_by_user?(friend)}
+  end
+
+  def favorized_by_user?(user)
+    user.favorized_products.include?(self)
+  end
+
+  def favorized_by
+    User.all.select{|user| user.favorized_products.include?(self)}
+  end
+
+  def favorized_by_friends(user)
+    user.friends.select{|friend| favorized_by_user?(friend)}
+  end
 end

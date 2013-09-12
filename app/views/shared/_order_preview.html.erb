@@ -36,10 +36,12 @@
       </tbody>
     </table>
     
-    <div class="btn-group" style="display: inline-block;">
-      <a href="#" class="btn btn-success" title="Like"><i class="icon-white icon-thumbs-up"></i></a>
-      <a href="#" class="btn btn-success" title="Share"><i class="icon-white icon-share-alt"></i></a>
+    <div class="button-toolbar">
+      <div class="btn-group">
+        <a href="#" class="btn btn-success" title="Like"><i class="icon-white icon-thumbs-up"></i></a>
+        <a href="#" class="btn btn-success" title="Share"><i class="icon-white icon-share-alt"></i></a>
+      </div>
+      <%= link_to "<i class=\"icon-trash\"></i> Delete order".html_safe, order_path(order), :class => "btn btn-danger", :method => :delete %>
     </div>
-    <%= link_to "<i class=\"icon-trash\"></i> Delete order".html_safe, order_path(order), :class => "btn btn-danger", :style => "display: inline-block;", :method => :delete %>
   </div>
 </div>

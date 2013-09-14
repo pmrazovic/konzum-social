@@ -29,6 +29,12 @@ KonzumSocial::Application.routes.draw do
   resources :friendships
   resources :likes
   resources :favorites
+  resources :ingredients
+  resources :recipes do 
+    member do
+      get 'modify_ingredients'
+    end
+  end
   root :to => "dashboard#index"
 
   # The priority is based upon order of creation: first created -> highest priority.

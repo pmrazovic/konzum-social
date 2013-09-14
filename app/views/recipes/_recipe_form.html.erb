@@ -1,0 +1,41 @@
+<div class="well">
+  <%= form_for(@recipe) do |f| %>
+
+  <legend>Modify Recipe</legend>
+
+  <div class="control-group">
+    <%= f.label :name, :class => "control-label" %>
+    <div class="controls">
+      <%= f.text_field :name, :class => "input-xlarge" %>   
+    </div>
+  </div>
+
+  <table class="table table-striped">
+  <thead>
+    <th>
+      <%= link_to "<i class=\"icon-cog\"> Modify Ingredients</i>".html_safe, modify_ingredients_recipe_path(@recipe) ,class: "btn btn-primary" %>
+    </th>
+  </thead>
+    <% @recipe.ingredients.each do |ingredient| %>
+    <tr>
+      <td><%= ingredient.quantity %>&times;</td>
+      <td><%= ingredient.product.name %></td>
+    </tr>
+    <% end %>
+  </table>
+
+  <div class="control-group">
+    <%= f.label :instructions, :class => "control-label" %>
+    <div class="controls">
+      <%= f.text_area :instructions, rows: 6, class: "input-xlarge" %>   
+    </div>
+  </div>
+
+  <div class="control-group">
+    <div class="controls">
+      <%= f.submit "Save", class: "btn btn-primary" %>
+    </div>
+  </div>
+
+  <% end %>
+</div>

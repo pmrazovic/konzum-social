@@ -1,0 +1,15 @@
+<table class="table table-striped">
+  <thead>
+      <th>Name</th>
+  </thead>
+  <tbody>
+    <% recipes.each do |recipe| %>
+      <tr>
+        <td><%= recipe.name %></td>
+        <td>
+          <%= link_to "<i class=\"icon-edit\"></i> Edit recipe".html_safe, edit_recipe_path(recipe), :class => "btn btn-primary btn-small" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

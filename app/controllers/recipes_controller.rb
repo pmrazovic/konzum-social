@@ -8,8 +8,10 @@ class RecipesController < ApplicationController
     @recipe.save
   end
 
+
   def update
-    @recipe.update(name: params[:name], instructions: params[:instructions])
+    params_recipe = params.require(:recipe).permit(:name, :instructions)
+    @recipe.update(params_recipe)
     @recipe.save
     session[:active_recipe] = nil
     redirect_to recipes_dashboard_index_url
@@ -24,7 +26,20 @@ class RecipesController < ApplicationController
     redirect_to categories_url
   end
 
-private
+  def destroy
+    if params[:purge]
+      @recipe.ingredients.destroy_all
+      redirect_to edit_recipe_url
+    else
+      @recipe.destroy
+      respond_to do |format|
+        format.html { redirect_to :back, notice: 'Recipe destroyed.' }
+        format.json { head :ok }
+      end
+    end
+  end
+
+  private
   # Use callbacks to share common setup or constraints between actions.
   def set_recipe
     @recipe = Recipe.find(params[:id])

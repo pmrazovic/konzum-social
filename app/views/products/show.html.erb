@@ -3,7 +3,13 @@
     <div class="thumbnail clearfix">
       <%= image_tag 'image_unavailable_gray.png', :class => 'pull-left span3 clearfix', :style => 'margin-right:10px' %>
       <div class="caption" class="pull-left">
-        <%= link_to "<i class=\"icon-shopping-cart\"> Add to cart</i>".html_safe, cart_items_path(:product_id => @product.id), :class => "btn btn-primary pull-right", :method => :post, :remote => true %>
+
+        <% if session[:active_recipe] == nil %>
+          <%= link_to "<i class=\"icon-shopping-cart\"> Add to cart</i>".html_safe, cart_items_path(:product_id => @product.id), :class => "btn btn-primary pull-right", :method => :post, :remote => true %>
+        <% else %>
+          <%= link_to "<i class=\"icon-food\"> Add ingredient</i>".html_safe, ingredients_path(product_id: @product), :class => "btn btn-primary pull-right", :method => :post, :remote => true %>
+        <% end %>
+        
         <h4>      
           <%= @product.name %>
         </h4>

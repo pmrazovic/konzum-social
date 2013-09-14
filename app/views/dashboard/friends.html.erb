@@ -37,7 +37,7 @@
   <% end %>
 
   <% i = 0 %>
-  <% @friends.each do |friend| %>
+  <% current_user.confirmed_friends.each do |friend| %>
     <% if i % 2 == 0 %>
     <div class="row-fluid">
       <% end %>

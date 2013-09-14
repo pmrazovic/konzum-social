@@ -86,4 +86,8 @@ class User < ActiveRecord::Base
     favorites.collect{|e| e.product}
   end
 
+  def confirmed_friends
+    friendships.select{|friendship| friendship.pending == false }.collect{|f| f.user == self ? f.friend : f.user }
+  end
+
 end

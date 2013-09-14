@@ -22,11 +22,11 @@
 </script>
 
 <div style="text-align: center;">
-  <a id="friends_list" href="#" style="font-size: x-large; font-weight: bold" data-toggle="popover" data-placement="right" data-triger="click" disabled="disabled" data-content="" title="Friends"><%= @user.friends.length %></a>
+  <a id="friends_list" href="#" style="font-size: x-large; font-weight: bold" data-toggle="popover" data-placement="right" data-triger="click" disabled="disabled" data-content="" title="Friends"><%= @user.confirmed_friends.length %></a>
 </div>
 
 <div id="popover_content_friends" style="display: none">
-    <% @user.friends.each do |friend| %>
+    <% @user.confirmed_friends.each do |friend| %>
         <%= link_to (image_tag friend.profile_picture('square'), :class => "imageClip"), profile_user_path(friend), :class => "thumbnail", :style => "width: 50px; height: 50px; display: inline-block;", :title => friend.full_name %>
     <% end %>
 </div>

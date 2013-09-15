@@ -1,7 +1,9 @@
 class Order < ActiveRecord::Base
   belongs_to :user
   has_many :order_items, :dependent => :destroy
+  has_many :products, :through => :order_items
   has_many :likes, :as => :likeable, :dependent => :destroy
+  has_many :user_activities, :as => :feedable, :dependent => :destroy
 
   def add_products(cart)
     cart.cart_items.each do |cart_item|

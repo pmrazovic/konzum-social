@@ -1,10 +1,12 @@
 require 'bootstrap_pagination_helper'
+require 'will_paginate/array'
 
 class DashboardController < ApplicationController
   before_filter :check_for_authentication, :only => [:index]
 
   def index
     @cart = current_cart
+    @user_activities = UserActivity.where(:user_id => current_user.confirmed_friends.collect{|f| f.id}).order("created_at DESC").paginate(:page => params[:page], :per_page => 15)
   end
 
   def orders
@@ -15,7 +17,7 @@ class DashboardController < ApplicationController
 
   def friends
     @cart = current_cart
-    @friends = current_user.friends.order(:last_name).paginate(:page => params[:page], :per_page => 10)
+    @friends = current_user.confirmed_friends.paginate(:page => params[:page], :per_page => 10)
   end
 
   def liked_products

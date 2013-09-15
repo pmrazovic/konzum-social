@@ -7,7 +7,7 @@
         <h4>      
           <%= @product.name %>
         </h4>
-        <small><%= render_category_path(@product.categories.select{|c| c.children.blank?}.first).html_safe %></small><br />
+        <small><%= render_category_path(@product.leaf_category).html_safe %></small><br />
         <small><b>Price: </b><%= number_to_currency(@product.price, :unit => "HRK ", :separator => ',', :delimiter => '.') %></small><br />
         <small><b>Sales unit of measure: </b><%= @product.sales_unit_of_measure %></small><br />
         <small><b>Manufacturer: </b><%= @product.manufacturer %></small><br />

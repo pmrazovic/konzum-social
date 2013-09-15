@@ -6,6 +6,8 @@ class CategoriesController < ApplicationController
   
   def index
     @cart = current_cart
+    @popular_products = ProductRecommendationFactor.where(:user_id => current_user.id).order("factor DESC").limit(10)
+    @max_factor = @popular_products.first.factor unless @popular_products.blank?
   end
 
   def show

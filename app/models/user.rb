@@ -18,6 +18,7 @@ class User < ActiveRecord::Base
   validates :first_name, :presence => true
   validates :last_name, :presence => true
   validates :gender, :inclusion => {:in => ['M', 'F']}
+  has_many :product_recommendation_factor, :dependent => :destroy
 
   def password_required?
     (authentications.empty? || !password.blank?) && super

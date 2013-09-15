@@ -5,6 +5,8 @@ class Product < ActiveRecord::Base
   has_and_belongs_to_many :categories
   has_many :likes, :as => :likeable, :dependent => :destroy
   has_many :favorites, :dependent => :destroy
+  has_many :product_recommendation_factor, :dependent => :destroy
+  has_many :user_activities, :as => :feedable, :dependent => :destroy
 
   def bought_by_user?(user)
     user.bought_products.include?(self)
@@ -40,5 +42,9 @@ class Product < ActiveRecord::Base
 
   def favorized_by_friends(user)
     user.friends.select{|friend| favorized_by_user?(friend)}
+  end
+
+  def leaf_category
+    categories.select{|c| c.children.blank?}.first
   end
 end

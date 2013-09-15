@@ -1,0 +1,12 @@
+<div class="media">
+  <%= link_to (image_tag 'image_unavailable_gray_media.png', :class => "imageClip pull-left"), product_path(activity.product), :class => "thumbnail pull-left", :style => "width: 50px; height: 50px;", :title => activity.product.name %>
+  <div class="media-body">
+    <p>
+      <small><strong><%= activity.product.name %></strong></small><br />
+      <small><%= render_category_path(activity.product.leaf_category).html_safe %></small><br />
+      <small><b>Price: </b><%= number_to_currency(activity.product.price, :unit => "HRK ", :separator => ',', :delimiter => '.') %></small><br />
+      <p>
+      <%= link_to "<i class=\"icon-shopping-cart\"></i> Add to cart".html_safe, cart_items_path(:product_id => activity.product.id), :class => "btn btn-primary btn-small", :method => :post, :remote => true %></p>
+    </p>
+  </div>
+</div>

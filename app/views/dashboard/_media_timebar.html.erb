@@ -1,0 +1,4 @@
+<p>
+  <i class="icon-calendar"></i> <%= activity.created_at.to_date.to_formatted_s(:long_ordinal) %> 
+  | <i class="icon-time"></i> <%= activity.created_at.strftime("%H:%M") %>
+</p>

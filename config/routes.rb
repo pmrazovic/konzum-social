@@ -30,9 +30,9 @@ KonzumSocial::Application.routes.draw do
   resources :likes
   resources :favorites
   resources :ingredients
-  resources :recipes do 
-    member do
-      get 'modify_ingredients'
+  resources :recipes do
+    member do 
+      get 'add_all_to_cart'
     end
   end
   root :to => "dashboard#index"

@@ -32,7 +32,7 @@
 <% end %>
 
 <div class="btn-group">
-  <%= link_to "<i class=\"icon-shopping-cart\"> Checkout</i>".html_safe, "#orderModal", :class => "btn btn-primary", :id => @cart.cart_items.blank? ? "" : "checkout", :data_toggle => "modal", :disabled => @cart.cart_items.blank? %>
+  <%= link_to "<i class=\"icon-shopping-cart\">Checkout</i>".html_safe, "#orderModal", :class => "btn btn-primary", :id => @cart.cart_items.blank? ? "" : "checkout", :data_toggle => "modal", :disabled => @cart.cart_items.blank? %>
   <%= link_to "<i class=\"icon-trash\"> Empty cart</i>".html_safe, cart_path(@cart), :class => "btn btn-danger", :id => "empty-cart", :method => :delete, :disabled => @cart.cart_items.blank? %>
 </div>
 

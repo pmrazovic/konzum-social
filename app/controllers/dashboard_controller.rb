@@ -31,7 +31,8 @@ class DashboardController < ApplicationController
   end
 
   def recipes
-    @cart = current_cart
+    @cart = current_cart    
+    @recipes = current_user.recipes
   end
 
   def shopping_lists

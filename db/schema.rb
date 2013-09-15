@@ -60,6 +60,12 @@ ActiveRecord::Schema.define(version: 20130915121439) do
     t.boolean  "pending"
   end
 
+  create_table "ingredients", force: true do |t|
+    t.integer "recipe_id"
+    t.integer "product_id"
+    t.integer "quantity"
+  end
+
   create_table "likes", force: true do |t|
     t.integer  "user_id"
     t.integer  "likeable_id"
@@ -93,6 +99,14 @@ ActiveRecord::Schema.define(version: 20130915121439) do
     t.string  "supplier"
     t.string  "sales_unit_of_measure"
     t.decimal "price",                 precision: 17, scale: 2
+  end
+
+  create_table "recipes", force: true do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.string   "instructions"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "user_activities", force: true do |t|

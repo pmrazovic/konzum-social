@@ -1,0 +1,25 @@
+<%= render :partial => "dashboard/navigation_sidebar" %>
+<div class="span9">
+  <div class="well well-small">
+    <h4 style="margin-left: 15px;">
+      <i class="icon-food"/></i> Recipes
+    </h4>
+  </div>
+  <table class="table">
+    <tr><td><h4><%= @recipe.name %></h4>
+    </td></tr>
+    <% @recipe.ingredients.each do |ingredient| %>
+    <tr>
+      <td><%= ingredient.quantity %>&times;</td>
+      <td><%= ingredient.product.name %></td>
+      <td><%= ingredient.product.price %> kn</td>
+    </tr>
+    <% end %>
+    <tr>
+      <td>
+      <%= link_to "<i class=\"icon-plus\"></i> Add all ingredients to cart".html_safe, add_all_to_cart_recipe_path(@recipe), :class => "btn btn-primary" %>
+      </td>
+    </tr>
+    <tr><td><%= @recipe.instructions %></td></tr>
+  </table>
+</div>

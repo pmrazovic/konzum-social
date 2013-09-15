@@ -1,6 +1,19 @@
 <%= render :partial => "dashboard/navigation_sidebar" %>
 <div class="span9">
   <div class="well well-small">
-    <h4 style="margin-left: 15px;"><i class="icon-food"/></i> Recipes</h4>
+    <h4 style="margin-left: 15px;">
+    <i class="icon-food"/></i> Recipes
+    <%= link_to "<i class=\"icon-plus\"> Add recipe</i>".html_safe, new_recipe_path, :class => "btn btn-primary pull-right", disabled: !session[:active_recipe].nil? %>
+    </h4>
+
   </div>
+
+  <% if @recipes.blank? %>
+    <div class="alert alert-info">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+        You don't have any recipes yet.
+    </div>
+  <% else %>
+    <%= render partial: 'shared/users_recipes', :locals => {:recipes => @recipes} %>
+  <% end %>  
 </div>

@@ -15,10 +15,17 @@
   </div>
   <% unless params[:controller] == 'devise/registrations' && params[:action] == 'edit' %>
     <div class="well" style="text-align: center;">
-      <h5 class="muted"><%= image_tag 'shopping-cart.png' %> Your Konzum cart</h5>
-      <div id="cart">
-        <%= render :partial => 'shared/cart' %>
-      </div>
+      <% if session[:active_recipe] == nil %>
+          <h5 class="muted"><%= image_tag 'shopping-cart.png' %> Your Konzum cart</h5>
+          <div id="cart">
+            <%= render :partial => 'shared/cart' %>
+          </div>
+      <% else %>
+          <h5 class="muted"><%= image_tag 'ingredients.png' %> Your Ingredients</h5>
+          <div id="ingredients">
+            <%= render :partial => 'shared/ingredients' %>
+          </div>
+      <% end %>
     </div>
   <% end %>
 </div>

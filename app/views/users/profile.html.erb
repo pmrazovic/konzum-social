@@ -1,28 +1,38 @@
 <%= render 'user_sideinfo' %>
 
 <div class="span9">
-  <div class="span12 well well-large">
-    <h2>Welcome <%= @user.full_name %></h2>
-    <h5>This dashboard page is under construction...</h5>
-    <h5>Friend requests:</h5>
-    <table class="table table-striped">
-      <tbody>
-        <% current_user.inverse_friendships.each do |request| %>
-        <% if request.pending %>
-        <tr>
-          <td><%= request.user.first_name %></td>
-          <td><%= request.user.last_name %></td>
-          <td><%= link_to "<i class=\"icon-ok\"> Accept</i>".html_safe, friendship_path(friend_id: request.user.id), method: :put, :class => "btn btn-small" %></td>            
-          <td><%= link_to "<i class=\"icon-remove\"> Reject</i>".html_safe, friendship_path(friend_id: request.user.id), method: :delete, :class => "btn btn-small" %></td>   
-        </tr>
-        <% end %>
-        <% end %>
-      </tbody>
-    </table>
-    <%= link_to "Logout", destroy_user_session_path, :method => :delete %> | 
-    <%= link_to "Edit account", edit_user_registration_path %>
+  <div class="well well-small">
+    <h4 style="margin-left: 15px;"><%= @user.full_name %></h4>
   </div>
+
+  <div class="pagination">
+    <%= will_paginate @user_activities, :previous_label => 'Previous', :next_label => 'Next', :renderer => 'BootstrapPaginationHelper::LinkRenderer'%>
+  </div>
+
+  <%= render :partial => 'shared/list_user_activities', :locals => {:user_activities => @user_activities} %>
+
+  <div class="pagination">
+    <%= will_paginate @user_activities, :previous_label => 'Previous', :next_label => 'Next', :renderer => 'BootstrapPaginationHelper::LinkRenderer'%>
+  </div>
+
 </div>
+
+<!--
+<h5>Friend requests:</h5>
+<table class="table table-striped">
+  <tbody>
+    <% current_user.inverse_friendships.each do |request| %>
+    <% if request.pending %>
+    <tr>
+      <td><%= request.user.first_name %></td>
+      <td><%= request.user.last_name %></td>
+      <td><%= link_to "<i class=\"icon-ok\"> Accept</i>".html_safe, friendship_path(friend_id: request.user.id), method: :put, :class => "btn btn-small" %></td>            
+      <td><%= link_to "<i class=\"icon-remove\"> Reject</i>".html_safe, friendship_path(friend_id: request.user.id), method: :delete, :class => "btn btn-small" %></td>   
+    </tr>
+    <% end %>
+    <% end %>
+  </tbody>
+</table>
 
 <table class="span9 table table-striped">
   <thead>
@@ -50,3 +60,4 @@
 <div class="pagination">
   <%= will_paginate @other_users, :previous_label => 'Previous', :next_label => 'Next', :renderer => 'BootstrapPaginationHelper::LinkRenderer'%>
 </div>
+-->

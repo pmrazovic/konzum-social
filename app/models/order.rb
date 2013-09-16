@@ -4,6 +4,7 @@ class Order < ActiveRecord::Base
   has_many :products, :through => :order_items
   has_many :likes, :as => :likeable, :dependent => :destroy
   has_many :user_activities, :as => :feedable, :dependent => :destroy
+  before_destroy :delete_user_activity
 
   def add_products(cart)
     cart.cart_items.each do |cart_item|
@@ -13,5 +14,9 @@ class Order < ActiveRecord::Base
 
   def total_current_amount
     order_items.inject(0){ |sum, item| sum + item.quantity * item.product.price}
+  end
+
+  def delete_user_activity
+    UserActivity.where(:user => user, :feedable_id => id, :feedable_type => 'ORDER_CHECKOUT').first.destroy
   end
 end

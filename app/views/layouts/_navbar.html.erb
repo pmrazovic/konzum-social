@@ -10,7 +10,7 @@
       <div class="nav-collapse collapse navbar-inverse-collapse">
         <ul class="nav">
           <li class="divider-vertical"></li>
-          <li><a href=<%= categories_path %>><i class="icon-home icon-white"></i> Home</a></li>
+          <li><a href=<%= dashboard_index_path %>><i class="icon-home icon-white"></i> Home</a></li>
           <li class="divider-vertical"></li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Products <b class="caret"></b></a>
@@ -19,9 +19,9 @@
             </ul>
           </li>
           <li class="divider-vertical"></li>
-          <li><%= link_to "Friends", "#" %></li>
+          <li><a href=<%= categories_path %>><i class="icon-home icon-shopping-cart"></i> Shop</a></li>
           <li class="divider-vertical"></li>
-          <li><%= link_to "Settings", "#" %></li>
+          <li><%= link_to "Browse users", "#" %></li>
           <li class="divider-vertical"></li>
         </ul>
         <ul class="nav pull-right">

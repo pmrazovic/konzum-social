@@ -1,36 +1,41 @@
 <div class="well">
-  <%= form_for(@recipe) do |f| %>
+  <%= form_for(@recipe, :html => { :class => "form-horizontal", :method => :put }) do |f| %>
 
   <legend>Modify Recipe</legend>
 
   <div class="control-group">
     <%= f.label :name, :class => "control-label" %>
     <div class="controls">
-      <%= f.text_field :name, :class => "input-xlarge" %>   
+      <%= f.text_field :name, :class => "input-xxlarge" %>   
     </div>
   </div>
-
-  <table class="table table-striped">
-  <thead>
-    <th>
+  
+  <div class="control-group">
+    <div class="controls">
       <%= button_tag type: "submit", class: "btn btn-primary", name: "modify_ingredients" do %> 
         <i class="icon-cog"></i> Modify Ingredients
       <% end %>
-    </th>
-  </thead>
-    <% @recipe.ingredients.each do |ingredient| %>
-    <tr>
-      <td><%= ingredient.quantity %>&times;</td>
-      <td><%= ingredient.product.name %></td>
-      <td><%= link_to "<i class=\"icon-remove\"></i>".html_safe, ingredient_path(ingredient), :method => :delete %>
-    </tr>
-    <% end %>
-  </table>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <div class="controls">
+      <table class="table table-striped">
+        <% @recipe.ingredients.each do |ingredient| %>
+        <tr>
+          <td><%= ingredient.quantity %>&times;</td>
+          <td><%= ingredient.product.name %></td>
+          <td><%= link_to "<i class=\"icon-remove\"></i>".html_safe, ingredient_path(ingredient), :method => :delete %>
+        </tr>
+        <% end %>
+      </table>
+      </div>
+  </div>
 
   <div class="control-group">
     <%= f.label :instructions, :class => "control-label" %>
     <div class="controls">
-      <%= f.text_area :instructions, rows: 6, class: "input-xlarge" %>   
+      <%= f.text_area :instructions, rows: 6, class: "input-xxlarge" %>   
     </div>
   </div>
 

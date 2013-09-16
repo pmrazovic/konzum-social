@@ -8,36 +8,7 @@
     <%= will_paginate @user_activities, :previous_label => 'Previous', :next_label => 'Next', :renderer => 'BootstrapPaginationHelper::LinkRenderer'%>
   </div>
 
-  <% @user_activities.each do |activity| %>
-      <div class="media">
-        <%= link_to (image_tag activity.user.profile_picture('square'), :class => "imageClip pull-left"), profile_user_path(activity.user), :class => "thumbnail pull-left", :style => "width: 50px; height: 50px;", :title => activity.user.full_name %>
-        <div class="media-body">
-
-          <% if activity.feedable_type == 'PRODUCT_LIKE' %>
-            <h4 class="media-heading"><%= link_to activity.user.full_name, profile_user_path(activity.user) %> liked new product</h4>
-            <p>
-              <%= activity.user.first_name %> liked product <%= link_to activity.product.name, product_path(activity.product) %> in <%= link_to activity.product.leaf_category.name, category_path(activity.product.leaf_category) %> product category.
-            </p>
-            <%= render :partial => 'media_timebar', :locals => {:activity => activity} %>
-            <%= render :partial => 'media_product', :locals => {:activity => activity} %>
-          <% elsif activity.feedable_type == 'PRODUCT_FAVORITE' %>
-            <h4 class="media-heading"><%= link_to activity.user.full_name, profile_user_path(activity.user) %> added new product in <%= activity.user.gender == 'M' ? 'his' : 'her' %> favorites</h4>
-            <p>
-              <%= activity.user.first_name %> added product <%= link_to activity.product.name, product_path(activity.product) %> from <%= link_to activity.product.leaf_category.name, category_path(activity.product.leaf_category) %> product category in <%= activity.user.gender == 'M' ? 'his' : 'her' %> favorites.
-            </p>
-            <%= render :partial => 'media_timebar', :locals => {:activity => activity} %>
-            <%= render :partial => 'media_product', :locals => {:activity => activity} %>
-          <% elsif activity.feedable_type == 'ORDER_CHECKOUT' %>
-            <h4 class="media-heading"><%= link_to activity.user.full_name, profile_user_path(activity.user) %> placed new order</h4>
-            <p>
-              <%= activity.user.first_name %> placed order with <strong><%= activity.order.order_items.length %></strong> products.
-            </p>
-            <%= render :partial => 'media_timebar', :locals => {:activity => activity} %>
-            <%= render :partial => 'media_order', :locals => {:activity => activity} %>
-          <% end %>
-        </div>
-      </div>
-  <% end %>
+  <%= render :partial => 'shared/list_user_activities', :locals => {:user_activities => @user_activities} %>
 
   <div class="pagination">
     <%= will_paginate @user_activities, :previous_label => 'Previous', :next_label => 'Next', :renderer => 'BootstrapPaginationHelper::LinkRenderer'%>

@@ -1,5 +1,5 @@
 <div class="span3"> 
-  <div class="span12 well well-large">
+  <div class="well well-large">
     <%= image_tag @user.profile_picture('large'), :class => "span12 img-polaroid profile" %>
     <h4><%= @user.full_name %></h4>
     <hr class="profile">
@@ -11,4 +11,19 @@
     <p class="muted" style="text-align: center"><i class="icon-group"></i> Friends </p>
       <%= render :partial => 'friends_popover' %>
   </div>
+
+  <div class="well" style="text-align: center;">
+    <% if session[:active_recipe] == nil %>
+        <h5 class="muted"><%= image_tag 'shopping-cart.png' %> Your Konzum cart</h5>
+        <div id="cart">
+          <%= render :partial => 'shared/cart' %>
+        </div>
+    <% else %>
+        <h5 class="muted"><%= image_tag 'ingredients.png' %> Your Ingredients</h5>
+        <div id="ingredients">
+          <%= render :partial => 'shared/ingredients' %>
+        </div>
+    <% end %>
+  </div>
+
 </div>

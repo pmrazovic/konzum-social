@@ -3,6 +3,7 @@ require 'will_paginate/array'
 
 class DashboardController < ApplicationController
   before_filter :check_for_authentication, :only => [:index]
+  before_filter :authenticate_user!, :except => [:index]
 
   def index
     @cart = current_cart

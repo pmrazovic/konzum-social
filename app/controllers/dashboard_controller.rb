@@ -39,6 +39,11 @@ class DashboardController < ApplicationController
     @cart = current_cart
   end
 
+  def browse_customers
+    @cart = current_cart
+    @other_users = User.where.not(id: current_user).paginate(page:  params[:page], per_page: 15, order: 'last_name')
+  end
+
   def check_for_authentication
     unless user_signed_in?
       redirect_to new_user_session_path

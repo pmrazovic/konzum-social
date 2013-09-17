@@ -17,6 +17,7 @@ class Order < ActiveRecord::Base
   end
 
   def delete_user_activity
-    UserActivity.where(:user => user, :feedable_id => id, :feedable_type => 'ORDER_CHECKOUT').first.destroy
+    activity = UserActivity.where(:user_id => user.id, :feedable_id => id, :feedable_type => 'ORDER_CHECKOUT').first
+    activity.destroy unless activity.nil?
   end
 end

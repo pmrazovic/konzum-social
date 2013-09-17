@@ -2,7 +2,7 @@
 
 <div class="span9">
   <div class="well well-small">
-    <h4 style="margin-left: 15px;"><%= @user.full_name %></h4>
+    <h4 style="margin-left: 15px;"><i class="icon-list"></i> <%= @user.first_name %>'s wall</h4>
   </div>
 
   <div class="pagination">
@@ -16,48 +16,3 @@
   </div>
 
 </div>
-
-<!--
-<h5>Friend requests:</h5>
-<table class="table table-striped">
-  <tbody>
-    <% current_user.inverse_friendships.each do |request| %>
-    <% if request.pending %>
-    <tr>
-      <td><%= request.user.first_name %></td>
-      <td><%= request.user.last_name %></td>
-      <td><%= link_to "<i class=\"icon-ok\"> Accept</i>".html_safe, friendship_path(friend_id: request.user.id), method: :put, :class => "btn btn-small" %></td>            
-      <td><%= link_to "<i class=\"icon-remove\"> Reject</i>".html_safe, friendship_path(friend_id: request.user.id), method: :delete, :class => "btn btn-small" %></td>   
-    </tr>
-    <% end %>
-    <% end %>
-  </tbody>
-</table>
-
-<table class="span9 table table-striped">
-  <thead>
-    <th>Name</th>
-    <th>Lastname</th>
-    <th>Status</th>
-  </thead>
-  <tbody>
-    <% @other_users.each do |user| %>
-      <%unless friendship_status(user, current_user) =='Pending' %>      
-        <tr>
-          <td><%= user.first_name %></td>
-          <td><%= user.last_name %></td>
-          <td><%= status = friendship_status(current_user, user) %></td>
-          <% if status == 'None' %>
-            <td><%= link_to "<i class=\"icon-plus\"> Friend</i>".html_safe, friendships_path(friend_id: user), method: :post, :class => "btn btn-small" %></td>
-          <% else %>
-            <td><%= link_to "<i class=\"icon-minus\"> Remove</i>".html_safe, friendship_path(friend_id: user), method: :delete, :class => "btn btn-small" %></td>            
-          <% end %>
-        </tr>
-      <%end%>
-    <% end %>
-  </tbody>
-</table>
-<div class="pagination">
-  <%= will_paginate @other_users, :previous_label => 'Previous', :next_label => 'Next', :renderer => 'BootstrapPaginationHelper::LinkRenderer'%>
-</div>
--->

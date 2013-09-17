@@ -6,7 +6,7 @@ class FriendshipsController < ApplicationController
     friendship.pending = true
     if friendship.save
       flash[:notice] = "Added friend."
-      redirect_to profile_user_url(current_user)
+      redirect_to :back
     else
       flash[:notice] = "Unable to add friend."
       redirect_to :back

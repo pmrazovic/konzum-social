@@ -9,6 +9,8 @@
         <li class="<%= 'active' if params[:controller] == 'dashboard' && params[:action] == 'favorite_products' %>"><%= link_to "<i class=\"icon-heart\"></i> Favorites".html_safe, favorite_products_dashboard_index_path %></li>
       <li class="<%= 'active' if params[:controller] == 'dashboard' && params[:action] == 'recipes' %>"><%= link_to "<i class=\"icon-food\"></i> Recipes".html_safe, recipes_dashboard_index_path %></li>
       <li class="divider"></li>
+      <li class="<%= 'active' if params[:controller] == 'dashboard' && params[:action] == 'browse_customers' %>"><%= link_to "<i class=\"icon-search\"></i> Browse customers".html_safe, browse_customers_dashboard_index_path %></li>
+      <li class="divider"></li>      
       <li class="<%= 'active' if params[:controller] == 'devise/registrations' && params[:action] == 'edit' %>"><%= link_to "<i class=\"icon-wrench\"></i> Settings".html_safe, edit_user_registration_path %></li> 
       <li><%= link_to "<i class=\"icon-share\"></i> Logout".html_safe, destroy_user_session_path, :method => :delete %></li>
     </ul>

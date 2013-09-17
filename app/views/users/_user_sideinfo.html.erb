@@ -10,6 +10,18 @@
     <hr class="profile">
     <p class="muted" style="text-align: center"><i class="icon-group"></i> Friends </p>
       <%= render :partial => 'friends_popover' %>
+    <hr class="profile">
+    <ul class="nav nav-list">
+      <li class="<%= 'active' if params[:controller] == 'users' && params[:action] == 'profile' %>"><%= link_to "<i class=\"icon-list\"></i> Wall".html_safe, profile_user_path(@user) %>
+      <li class="<%= 'active' if params[:controller] == 'users' && params[:action] == 'profile_orders' %>"><%= link_to "<i class=\"icon-shopping-cart\"></i> Orders".html_safe, profile_orders_path(@user) %>
+      </li>
+      <li class="<%= 'active' if params[:controller] == 'users' && params[:action] == 'profile_likes' %>"><%= link_to "<i class=\"icon-thumbs-up\"></i> Liked products".html_safe, profile_likes_path(@user) %>
+      </li>      
+      <li class="<%= 'active' if params[:controller] == 'users' && params[:action] == 'profile_favorites' %>"><%= link_to "<i class=\"icon-heart\"></i> Favorites".html_safe, profile_favorites_path(@user) %>
+      </li>       
+      <li class="<%= 'active' if params[:controller] == 'users' && params[:action] == 'profile_recipes' %>"><%= link_to "<i class=\"icon-food\"></i> Recipes".html_safe, profile_recipes_path(@user) %>
+      </li>      
+    </ul>
   </div>
 
   <div class="well" style="text-align: center;">

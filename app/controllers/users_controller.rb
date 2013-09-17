@@ -7,8 +7,31 @@ class UsersController < ApplicationController
   def profile
     @cart = current_cart
     @user = User.find_by_id(params[:id])
-    @other_users = User.where.not(id: current_user).paginate(page:  params[:page], per_page: 15, order: 'last_name')
     @user_activities = UserActivity.where(:user_id => @user.id).order("created_at DESC").paginate(:page => params[:page], :per_page => 15)
   end
+
+  def profile_orders
+    @cart = current_cart
+    @user = User.find_by_id(params[:id])
+    @orders = @user.orders.order('created_at DESC').paginate(:page => params[:page], :per_page => 15)
+  end
+
+  def profile_likes
+    @cart = current_cart
+    @user = User.find_by_id(params[:id])
+    @likes = @user.likes.paginate(:page => params[:page], :per_page => 15)
+  end
+
+  def profile_favorites
+    @cart = current_cart
+    @user = User.find_by_id(params[:id])
+    @favorites = @user.favorites.paginate(:page => params[:page], :per_page => 15)
+  end
+
+  def profile_recipes
+    @cart = current_cart    
+    @user = User.find_by_id(params[:id])
+    @recipes = @user.recipes
+  end  
 
 end

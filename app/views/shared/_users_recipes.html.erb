@@ -10,12 +10,14 @@
         <td>
             <%= link_to "<i class=\"icon-file-text-alt\"></i> Show recipe".html_safe, recipe_path(recipe), :class => "btn btn-primary btn-small", disabled: !session[:active_recipe].nil? %>          
         </td>
-        <td>
-            <%= link_to "<i class=\"icon-edit\"></i> Edit recipe".html_safe, edit_recipe_path(recipe), :class => "btn btn-primary btn-small", disabled: !(session[:active_recipe].nil? || session[:active_recipe] == recipe.id) %>
-        </td>
-        <td>
-        <%= link_to "<i class=\"icon-remove\"></i>".html_safe, recipe_path(recipe), :method => :delete, :title => "Remove from favorites" %>
-        </td>
+        <% if recipe.user == current_user %>
+          <td>
+              <%= link_to "<i class=\"icon-edit\"></i> Edit recipe".html_safe, edit_recipe_path(recipe), :class => "btn btn-primary btn-small", disabled: !(session[:active_recipe].nil? || session[:active_recipe] == recipe.id) %>
+          </td>
+          <td>
+          <%= link_to "<i class=\"icon-remove\"></i>".html_safe, recipe_path(recipe), :method => :delete, :title => "Remove from favorites" %>
+          </td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

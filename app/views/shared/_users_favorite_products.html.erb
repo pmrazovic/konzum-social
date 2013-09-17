@@ -29,7 +29,9 @@
             <%= link_to "<i class=\"icon-food\"> Add ingredient</i>".html_safe, ingredients_path(product_id: favorite.product), :class => "btn btn-primary btn-small", :method => :post, :remote => true %>
           <% end %>
         <td>
-        <td><%= link_to "<i class=\"icon-remove\"></i>".html_safe, favorite_path(favorite), :method => :delete, :title => "Remove from favorites" %></td>
+        <% if favorite.user == current_user %>
+          <td><%= link_to "<i class=\"icon-remove\"></i>".html_safe, favorite_path(favorite), :method => :delete, :title => "Remove from favorites" %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

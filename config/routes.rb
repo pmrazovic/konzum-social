@@ -10,6 +10,7 @@ KonzumSocial::Application.routes.draw do
       get 'liked_products'
       get 'favorite_products'
       get 'recipes'
+      get 'browse_customers'
     end
   end
   resources :categories
@@ -35,6 +36,10 @@ KonzumSocial::Application.routes.draw do
       get 'add_all_to_cart'
     end
   end
+  get "user/:id/profile/orders" => "users#profile_orders", :as => 'profile_orders'
+  get "user/:id/profile/likes" => "users#profile_likes", :as => 'profile_likes'
+  get "user/:id/profile/favorites" => "users#profile_favorites", :as => 'profile_favorites'
+  get "user/:id/profile/recipes" => "users#profile_recipes", :as => 'profile_recipes'
   root :to => "dashboard#index"
 
   # The priority is based upon order of creation: first created -> highest priority.

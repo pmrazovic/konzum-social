@@ -20,6 +20,8 @@ class User < ActiveRecord::Base
   validates :last_name, :presence => true
   validates :gender, :inclusion => {:in => ['M', 'F']}
   has_many :product_recommendation_factor, :dependent => :destroy
+  before_destroy :delete_user_activity
+  before_destroy :delete_friendships
 
   def password_required?
     (authentications.empty? || !password.blank?) && super
@@ -51,10 +53,6 @@ class User < ActiveRecord::Base
   def facebook_authentication
     authentications.where(:provider => 'facebook').first
   end
-
-  # def friends
-  #   friends_from_facebook
-  # end
 
   def friends_from_facebook
     graph = Koala::Facebook::API.new(facebook_authentication.token)
@@ -90,6 +88,15 @@ class User < ActiveRecord::Base
 
   def confirmed_friends
     friendships.select{|friendship| friendship.pending == false }.collect{|f| f.user == self ? f.friend : f.user }
+  end
+
+  def delete_user_activity
+    UserActivity.where(:user_id => self.id).each{|activity| activity.destroy }
+  end
+
+  def delete_friendships
+    Friendship.where(:user_id => self.id).each{|friendship| friendship.destroy}
+    Friendship.where(:friend_id => self.id).each{|friendship| friendship.destroy}
   end
 
 end

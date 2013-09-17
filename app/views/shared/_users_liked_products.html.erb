@@ -23,11 +23,7 @@
           <%= link_to "<i class=\"icon-info\"> Info</i>".html_safe, product_path(like.product), :class => "btn btn-small" %>
         </td>
         <td>
-          <% if session[:active_recipe] == nil %>
-            <%= link_to "<i class=\"icon-shopping-cart\"> Add to cart</i>".html_safe, cart_items_path(:product_id => like.product.id), :class => "btn btn-primary btn-small", :method => :post, :remote => true %>
-          <% else %>
-            <%= link_to "<i class=\"icon-food\"> Add ingredient</i>".html_safe, ingredients_path(product_id: like.product), :class => "btn btn-primary btn-small", :method => :post, :remote => true %>
-          <% end %>
+          <%= add_btn_helper(like.product, :small) %>
         <td>
           <% if like.user == current_user%>
             <td><%= link_to "<i class=\"icon-remove\"></i>".html_safe, like_path(like), :method => :delete, :title => "Dislike" %></td>

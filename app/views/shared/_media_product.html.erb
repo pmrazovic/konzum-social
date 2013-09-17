@@ -6,7 +6,7 @@
       <small><%= render_category_path(activity.product.leaf_category).html_safe %></small><br />
       <small><b>Price: </b><%= number_to_currency(activity.product.price, :unit => "HRK ", :separator => ',', :delimiter => '.') %></small><br />
       <p>
-      <%= link_to "<i class=\"icon-shopping-cart\"></i> Add to cart".html_safe, cart_items_path(:product_id => activity.product.id), :class => "btn btn-primary btn-small", :method => :post, :remote => true %></p>
+      <%= add_btn_helper(activity.product, :small) %></p>
     </p>
   </div>
 </div>

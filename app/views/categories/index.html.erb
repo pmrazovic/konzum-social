@@ -23,7 +23,7 @@
               </p>
               <p>
                 <span class="badge badge-success pull-right"><%= ((rec.factor.to_f/@max_factor.to_f)*100).to_i %>%</span>
-                <%= link_to "<i class=\"icon-shopping-cart\"></i> Add to cart".html_safe, cart_items_path(:product_id => rec.product.id), :class => "btn btn-primary", :method => :post, :remote => true %>
+                <%= add_btn_helper(rec.product, :medium) %>
                 <%= link_to "<i class=\"icon-info\"></i> Info".html_safe, product_path(rec.product), :class => "btn" %>
               </p>
             </div>
@@ -64,7 +64,7 @@
             <%= link_to "<i class=\"icon-info\"> Info</i>".html_safe, product_path(rec.product), :class => "btn btn-small" %>
           </td>
           <td>
-            <%= link_to "<i class=\"icon-shopping-cart\"> Add to cart</i>".html_safe, cart_items_path(:product_id => rec.product.id), :class => "btn btn-primary btn-small", :method => :post, :remote => true %>
+            <%= add_btn_helper(rec.product) %>
           <td>
         </tr>
       <% end %>

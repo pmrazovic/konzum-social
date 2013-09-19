@@ -38,6 +38,7 @@ class DashboardController < ApplicationController
 
   def shopping_lists
     @cart = current_cart
+    @shopping_lists = current_user.shopping_lists
   end
 
   def browse_customers

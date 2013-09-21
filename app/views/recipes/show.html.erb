@@ -5,21 +5,27 @@
       <i class="icon-food"/></i> Recipes
     </h4>
   </div>
-  <table class="table">
-    <tr><td><h4><%= @recipe.name %></h4>
-    </td></tr>
-    <% @recipe.ingredients.each do |ingredient| %>
-    <tr>
-      <td><%= ingredient.quantity %>&times;</td>
-      <td><%= ingredient.product.name %></td>
-      <td><%= ingredient.product.price %> kn</td>
-    </tr>
-    <% end %>
-    <tr>
-      <td>
-      <%= link_to "<i class=\"icon-plus\"></i> Add all ingredients to cart".html_safe, add_all_to_cart_recipe_path(@recipe), :class => "btn btn-primary" %>
-      </td>
-    </tr>
-    <tr><td><%= @recipe.instructions %></td></tr>
-  </table>
+
+  <h4><%= @recipe.name %><small> by <%= link_to @recipe.user.full_name, profile_user_path(@recipe.user) %></small></h4>
+  <hr></hr>
+    <h5>Ingridients</h5>
+    <table class="table table-striped">  
+      <% @recipe.ingredients.each do |ingredient| %>
+      <tr>
+        <td><%= ingredient.quantity %>&times; <%= ingredient.product.name %></td>
+        <td><%= number_to_currency(ingredient.product.price * ingredient.quantity, :unit => "HRK ", :separator => ',', :delimiter => '.') %></td>
+        <td>
+          <%= link_to "<i class=\"icon-info\"> Product info</i>".html_safe, product_path(ingredient.product), :class => "btn btn-small" %>
+        </td>
+      </tr>
+      <% end %>
+      <tr>
+        <th>Total:</th>
+        <th><%= number_to_currency(@recipe.total_current_amount, :unit => "HRK ", :separator => ',', :delimiter => '.') %><th>
+      </tr>
+    </table>
+    <%= link_to "<i class=\"icon-plus\"></i> Add all ingredients to cart".html_safe, add_all_to_cart_recipe_path(@recipe), :class => "btn btn-primary" %>
+   <hr></hr>
+    <h5>Instructions</h5>  
+    <%= @recipe.instructions %>
 </div>

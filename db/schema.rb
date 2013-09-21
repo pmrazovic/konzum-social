@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130915121439) do
+ActiveRecord::Schema.define(version: 20130921120505) do
 
   create_table "authentications", force: true do |t|
     t.integer  "user_id"
@@ -104,7 +104,7 @@ ActiveRecord::Schema.define(version: 20130915121439) do
   create_table "recipes", force: true do |t|
     t.integer  "user_id"
     t.string   "name"
-    t.string   "instructions"
+    t.text     "instructions"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -133,6 +133,8 @@ ActiveRecord::Schema.define(version: 20130915121439) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "small_profile_image"
+    t.string   "large_profile_image"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

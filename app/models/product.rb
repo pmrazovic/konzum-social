@@ -46,5 +46,5 @@ class Product < ActiveRecord::Base
 
   def leaf_category
     categories.select{|c| c.children.blank?}.first
-  end
+  end 
 end

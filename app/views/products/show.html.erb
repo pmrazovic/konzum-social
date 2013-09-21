@@ -25,13 +25,15 @@
             <% else %>
               <%= link_to "<i class=\"icon-heart\"></i>".html_safe, favorite_path(@favorite), :id => "favorite-button", :class => "btn btn-success active", :title => "Remove from favorites", :method => :delete, 'data-toggle' => "button", :remote => true %>
             <% end %>
-            <a href="#" class="btn btn-success" title="Share"><i class="icon-white icon-share-alt"></i></a>
+            <a id="share" href="#shareModal" class="btn btn-success" title="Share"><i class="icon-white icon-share-alt"></i></a>
           </div>
         </div>
       </div>
     </div>
   </li>  
 </ul>
+
+<%= render :partial => 'shared/share_modal' %>
 
 <div id="like-notice">
 </div>
@@ -42,32 +44,11 @@
 <%= render :partial => 'friends_who_liked_product' %>
 <%= render :partial => 'friends_who_favorize_product' %>
 
-<blockquote style="margin-top: 40px;">
-  <p>Friends who bought this product also bought:</p>
-</blockquote>
-<table class="table table-striped">
+<% unless @popular_products_in_category.blank? %>
+  <blockquote style="margin-top: 40px;">
+    <p>Your friends also like in <%= link_to @product.leaf_category.parent.name, category_path(@product.leaf_category.parent) %> product category:</p>
+  </blockquote>
 
-  <tbody>
-    <% Product.all.limit(5).each do |product| %>
-    <tr>
-      <td>
-        <div>
-          Relevance: <span class="pull-right strong">75%</span>
-          <div class="progress progress-striped active">
-            <div class="bar " style="width: 75%;"></div>
-          </div>
-        </div>
-      </td>
-      <td><%= truncate product.name, :length => 50 %></td>
-      <td><%= number_to_currency(product.price, :unit => "HRK ", :separator => ',', :delimiter => '.') %></td>
-      <td>
-        <%= link_to "<i class=\"icon-info\"> Info</i>".html_safe, product_path(product), :class => "btn btn-small" %>
-      </td>
-      <td>
-        <%= add_btn_helper(product, :small) %>
-      <td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+  <%= render :partial => 'shared/popular_friends_products_list', :locals => {:popular_products => @popular_products_in_category, :max_factor => @max_factor} %>
+<% end %>
 

@@ -14,7 +14,11 @@ KonzumSocial::Application.routes.draw do
     end
   end
   resources :categories
-  resources :products
+  resources :products do
+    member do
+      post 'share'
+    end
+  end
   resources :users do
     member do
       get 'profile'

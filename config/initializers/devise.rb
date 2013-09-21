@@ -227,7 +227,7 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', :scope => 'user,public_repo'
   config.omniauth :facebook, '481625658583538', 'b43f5b4e825b7684bb0084391f6ea712', 
-                {:scope => 'email, offline_access', :client_options => {:ssl => {:ca_file => '/usr/lib/ssl/certs/ca-certificates.crt'}}} 
+                {:scope => 'email, offline_access, publish_stream', :client_options => {:ssl => {:ca_file => '/usr/lib/ssl/certs/ca-certificates.crt'}}} 
   #config.omniauth :twitter, 'RUeZqAwHgSBzij7K2VfWQ', 'nki9gum0w9uxJhGzfAMT0vLVChovCJWmsvxHH159MWk'
 
   # TODO Za Heroku: 

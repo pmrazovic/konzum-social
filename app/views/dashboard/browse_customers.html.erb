@@ -1,35 +1,36 @@
 <%= render :partial => "dashboard/navigation_sidebar" %>
 <div class="span9">
+
+  <div class="well well-small">
+    <h4 style="margin-left: 15px;"><i class="icon-search"/></i> Browse customers</h4>
+  </div>
+
   <div class="pagination">
     <%= will_paginate @other_users, :previous_label => 'Previous', :next_label => 'Next', :renderer => 'BootstrapPaginationHelper::LinkRenderer'%>
   </div>
 
   <table class="table table-striped">
-    <div class="well well-small">
-      <h4 style="margin-left: 15px;"><i class="icon-search"/></i> Browse customers</h4>
-    </div>
-
-    <thead>
-      <th>Name</th>
-      <th>Lastname</th>
-      <th>Status</th>
-    </thead>
-    <tbody>
-      <% @other_users.each do |user| %>
-        <%unless friendship_status(user, current_user) =='Pending' %>      
-          <tr>
-            <td><%= user.first_name %></td>
-            <td><%= user.last_name %></td>
-            <td><%= status = friendship_status(current_user, user) %></td>
-            <% if status == 'None' %>
-              <td><%= link_to "<i class=\"icon-plus\"> Friend</i>".html_safe, friendships_path(friend_id: user), method: :post, :class => "btn btn-small" %></td>
-            <% else %>
-              <td><%= link_to "<i class=\"icon-minus\"> Remove</i>".html_safe, friendship_path(friend_id: user, :id => Friendship.where(:friend_id => user.id, :user_id => current_user.id).first.id), method: :delete, :class => "btn btn-small" %></td>            
-            <% end %>
-          </tr>
-        <%end%>
-      <% end %>
-    </tbody>
+    <% @other_users.each do |user| %>
+      <%unless friendship_status(user, current_user) =='Pending' %>      
+        <tr>
+          <td style="width: 55px;">
+            <%= link_to (image_tag user.profile_picture('square'), :class => "imageClip pull-left"), profile_user_path(user), :class => "thumbnail pull-left", :style => "width: 50px; height: 50px;", :title => user.full_name %>
+          </td>
+          <td><%= link_to user.full_name, profile_user_path(user.id) %></td>
+          <td>
+            <%= user.gender == 'M' ? '<i class="icon-male"></i> Male'.html_safe : '<i class="icon-female"></i> Female'.html_safe %>
+          </td>
+          <td>
+            <%= user.email %>
+          </td>
+          <% if friendship_status(current_user, user) == 'None' %>
+            <td><%= link_to "<i class=\"icon-plus\"> Send friend request</i>".html_safe, friendships_path(friend_id: user), method: :post, :class => "btn btn-primary btn-small" %></td>
+          <% else %>
+            <td><%= link_to "<i class=\"icon-minus\"> Remove from friends</i>".html_safe, friendship_path(friend_id: user, :id => Friendship.where(:friend_id => user.id, :user_id => current_user.id).first.id), method: :delete, :class => "btn btn-danger btn-small" %></td>            
+          <% end %>
+        </tr>
+      <%end%>
+    <% end %>
   </table>
 
   <div class="pagination">

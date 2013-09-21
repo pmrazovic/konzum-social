@@ -2,6 +2,7 @@
   <thead>
     <tr>
       <th>Rating</td>
+      <th></th>
       <th>Product name</th>
       <th>Price</th>
       <th></th>
@@ -19,7 +20,10 @@
             </div>
           </div>
         </td>
-        <td><%= rec.product.name %></td>
+        <td style="width: 55px;">
+          <%= link_to (image_tag rec.product.image_small, :class => "imageClip pull-left"), product_path(rec.product), :class => "thumbnail pull-left", :style => "width: 50px; height: 50px;", :title => rec.product.name %>
+        </td>
+        <td><%= truncate rec.product.name, :length => 45 %></td>
         <td><%= number_to_currency(rec.product.price, :unit => "HRK ", :separator => ',', :delimiter => '.') %></td>
         <td>
           <%= link_to "<i class=\"icon-info\"> Info</i>".html_safe, product_path(rec.product), :class => "btn btn-small" %>

@@ -1,5 +1,12 @@
 <script type="text/javascript">
   $(document).ready(function() {
+    $('a[disabled=disabled]').click(function(event){
+        event.preventDefault();
+        return false; // Prevent link from following its href
+    });
+  });
+  
+  $(document).ready(function() {
     $("#share").click(function(){
       if ($(this).prop('disabled', 'disabled')) {
         $("#shareModal").modal('show');
@@ -20,7 +27,7 @@
       <table>
         <tr>
         <td>
-          <%= image_tag 'image_unavailable_gray.png', :class => 'pull-left span12 clearfix', :style => 'margin-right:10px' %>
+          <%= image_tag @product.image_medium, :class => 'pull-left span12 clearfix', :style => 'margin-right:10px' %>
         </td>
         <td>
           <div class="caption" class="pull-left">

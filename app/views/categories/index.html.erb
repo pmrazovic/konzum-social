@@ -12,7 +12,7 @@
       <% @popular_products.limit(3).each do |rec| %>
         <li class="span4">
           <div class="thumbnail">
-            <%= image_tag 'image_unavailable_gray_top.png' %>
+            <%= image_tag rec.product.image_large, :class => "span12"%>
             <div class="caption">
               <h4><%= truncate rec.product.name, :length => 50 %></h4>
               <p>

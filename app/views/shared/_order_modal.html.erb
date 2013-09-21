@@ -21,12 +21,12 @@
         <% @cart.cart_items.sort.each do |item|%>
           <tr>
             <td><%= item.quantity %> &times; <%= item.product.name %></td>
-            <td><%= number_to_currency(item.product.price * item.quantity, :separator => ',', :delimiter => '.', :unit => '') %></td>
+            <td><%= number_to_currency(item.product.price * item.quantity, :separator => ',', :delimiter => '.', :unit => 'HRK ') %></td>
           </tr>
         <% end %>
         <tr>
           <th>Total:</th>
-          <th><%= number_to_currency(@cart.total_amount, :separator => ',', :delimiter => '.', :unit => 'HRK ') %><th>
+          <th><%= number_to_currency(@cart.total_amount, :separator => ',', :delimiter => '.', :unit => 'HRK ') %>
         </tr>
       </table>
     <% end %>

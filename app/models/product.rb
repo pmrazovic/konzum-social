@@ -46,5 +46,17 @@ class Product < ActiveRecord::Base
 
   def leaf_category
     categories.select{|c| c.children.blank?}.first
-  end 
+  end
+
+  def image_small
+    "https://online.konzum.hr/images/products/#{code[0,3]}/#{code}s.gif"
+  end
+
+  def image_medium
+    "https://online.konzum.hr/images/products/#{code[0,3]}/#{code}m.gif"
+  end
+
+  def image_large
+    "https://online.konzum.hr/images/products/#{code[0,3]}/#{code}l.gif"
+  end
 end

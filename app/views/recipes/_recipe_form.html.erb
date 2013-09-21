@@ -23,8 +23,10 @@
       <table class="table table-striped">
         <% @recipe.ingredients.each do |ingredient| %>
         <tr>
-          <td><%= ingredient.quantity %>&times;</td>
-          <td><%= ingredient.product.name %></td>
+          <td style="width: 55px;">
+            <%= link_to (image_tag ingredient.product.image_small, :class => "imageClip pull-left"), product_path(ingredient.product), :class => "thumbnail pull-left", :style => "width: 50px; height: 50px;", :title => ingredient.product.name %>
+          </td>
+          <td><%= ingredient.quantity %>&times; <%= ingredient.product.name %></td>
           <td><%= link_to "<i class=\"icon-remove\"></i>".html_safe, ingredient_path(ingredient), :method => :delete %>
         </tr>
         <% end %>

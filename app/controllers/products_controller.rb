@@ -1,3 +1,5 @@
+require 'publisher'
+
 class ProductsController < ApplicationController
   before_filter :authenticate_user!
   layout 'categories_products_layout'
@@ -12,17 +14,10 @@ class ProductsController < ApplicationController
   end
 
   def share
-    @product = Product.find_by_id(params[:id])
-    graph = Koala::Facebook::API.new(current_user.facebook_authentication.token)
-    options = {
-      :message => "Check out this product on Konzum Online Store",
-      :name => "#{@product.name}",
-      :link => "#{product_url(@product)}",
-      :caption => "#{@product.manufacturer}",
-      :description => "Price: #{ActionController::Base.helpers.number_to_currency(@product.price, :unit => 'HRK ', :separator => ',', :delimiter => '.')}",
-      :picture => "http://online.konzum.hr/images/products/030/03063431l.gif"
-    }
-    graph.put_object("me", "feed", options)
+    if current_user.connected_with_facebook?
+      @product = Product.find_by_id(params[:id])
+      Publisher.share(@product, product_url(@product), current_user, 'Check out this product on Konzum Online Store')
+    end
     redirect_to :back
   end
 end

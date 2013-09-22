@@ -12,7 +12,7 @@
       <% @popular_products.limit(3).each do |rec| %>
         <li class="span4">
           <div class="thumbnail">
-            <%= image_tag 'image_unavailable_gray_top.png' %>
+            <%= image_tag rec.product.image_large, :class => "span12"%>
             <div class="caption">
               <h4><%= truncate rec.product.name, :length => 50 %></h4>
               <p>
@@ -37,37 +37,6 @@
     <p>Other popular products</p>
   </blockquote>
 
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Rating</td>
-        <th>Product name</th>
-        <th>Price</th>
-        <th></th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @popular_products.each do |rec| %>
-        <tr>
-          <td style="width: 180px;">
-            <div>
-              Rating: <span class="pull-right strong"><%= ((rec.factor.to_f/@max_factor.to_f)*100).to_i %> %</span>
-              <div class="progress progress-striped active">
-                <div class="bar " style="width: <%= ((rec.factor.to_f/@max_factor.to_f)*100).to_i %>%;"></div>
-              </div>
-            </div>
-          </td>
-          <td><%= rec.product.name %></td>
-          <td><%= number_to_currency(rec.product.price, :unit => "HRK ", :separator => ',', :delimiter => '.') %></td>
-          <td>
-            <%= link_to "<i class=\"icon-info\"> Info</i>".html_safe, product_path(rec.product), :class => "btn btn-small" %>
-          </td>
-          <td>
-            <%= add_btn_helper(rec.product) %>
-          <td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+  <%= render :partial => 'shared/popular_friends_products_list', :locals => {:popular_products => @popular_products, :max_factor => @max_factor} %>
+
 <% end %>

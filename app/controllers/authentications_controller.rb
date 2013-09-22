@@ -16,6 +16,8 @@ class AuthenticationsController < ApplicationController
      flash[:notice] = "Logged in Successfully"
      user = User.find(authentication.user_id)
      update_friendships(user)
+     update_profile_image(user)
+     user.update_facebook_token(omni)
      sign_in_and_redirect user
    elsif current_user
      token = omni['credentials'].token
@@ -25,6 +27,7 @@ class AuthenticationsController < ApplicationController
 
      flash[:notice] = "Authentication successful."
      update_friendships(current_user)
+     update_profile_image(user)
      sign_in_and_redirect current_user
    else
      user = User.new
@@ -55,6 +58,13 @@ def update_friendships(user)
       friend.friendships.build(friend_id: user.id, pending: false).save
     end
   end
+end
+
+def update_profile_image(user)
+  graph = Koala::Facebook::API.new(user.facebook_authentication.token)
+  user.small_profile_image = graph.get_picture('me', :type => 'square')
+  user.large_profile_image = graph.get_picture('me', :type => 'large')
+  user.save
 end
 
 def twitter

@@ -36,6 +36,13 @@ class User < ActiveRecord::Base
                           :token_secret => omni['credentials'].secret)
   end
 
+  def update_facebook_token(omni)
+    auth = facebook_authentication
+    auth.token = omni['credentials'].token
+    auth.token_secret = omni['credentials'].secret
+    auth.save
+  end
+
   def update_with_password(params, *options)
     if encrypted_password.blank?
       update_attributes(params, *options)
@@ -70,7 +77,8 @@ class User < ActiveRecord::Base
   def profile_picture(type)
     if connected_with_facebook?
       graph = Koala::Facebook::API.new(facebook_authentication.token)      
-      return graph.get_picture('me', :type => type)
+      return large_profile_image if type == 'large'
+      return small_profile_image if type == 'square'
     else
       return gender == 'M' ? 'user-icon-male.png' : 'user-icon-female.png'
     end

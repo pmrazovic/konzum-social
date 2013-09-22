@@ -9,6 +9,7 @@ namespace :user_activities do
     Cart.destroy_all
     ProductRecommendationFactor.destroy_all
     UserActivity.destroy_all
+    Recipe.destroy_all
     puts "User activities successfuly cleared."
   end  
 end

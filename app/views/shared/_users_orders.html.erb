@@ -10,6 +10,7 @@
           <table class="table table-striped table-condensed">
             <thead>
               <tr>
+                <th></th>
                 <th>Product name</th>
                 <th>Unit</th>
                 <th>Quantity</th>
@@ -20,6 +21,9 @@
             <tbody>
               <% order.order_items.each do |item| %>
                 <tr>
+                  <td style="width: 55px;">
+                    <%= link_to (image_tag item.product.image_small, :class => "imageClip pull-left"), product_path(item.product), :class => "thumbnail pull-left", :style => "width: 50px; height: 50px;", :title => item.product.name %>
+                  </td>
                   <td><%= truncate item.product.name, :length => 65 %></td>
                   <td><%= item.product.sales_unit_of_measure %></td>
                   <td><%= item.quantity %></td>
@@ -30,8 +34,10 @@
                 </tr>
               <% end %>
               <tr>
+                <th></th>
                 <th>Total:</th>
-                <th><th>
+                <th></th>
+                <th></th>
                 <th><%= number_to_currency(order.total_current_amount, :unit => "HRK ", :separator => ',', :delimiter => '.') %><th>
               </tr>
             </tbody>

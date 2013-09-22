@@ -5,6 +5,7 @@
 <table class="table table-striped">
   <thead>
     <tr>
+      <th></th>
       <th>Product name</th>
       <th>Unit</th>
       <th>Price</th>
@@ -16,6 +17,9 @@
   <tbody>
     <% favorites.each do |favorite| %>
       <tr>
+        <td style="width: 55px;">
+          <%= link_to (image_tag favorite.product.image_small, :class => "imageClip pull-left"), product_path(favorite.product), :class => "thumbnail pull-left", :style => "width: 50px; height: 50px;", :title => favorite.product.name %>
+        </td>
         <td><%= truncate favorite.product.name, :length => 65 %></td>
         <td><%= favorite.product.sales_unit_of_measure %></td>
         <td><%= number_to_currency(favorite.product.price, :unit => "HRK ", :separator => ',', :delimiter => '.') %></td>

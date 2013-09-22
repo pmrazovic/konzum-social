@@ -1,37 +1,45 @@
 <ul class="thumbnails">
   <li class="span12 clearfix">
     <div class="thumbnail clearfix">
-      <%= image_tag 'image_unavailable_gray.png', :class => 'pull-left span3 clearfix', :style => 'margin-right:10px' %>
-      <div class="caption" class="pull-left">
-        <%= add_btn_helper(@product, :medium, 'pull-right') %>        
-        <h4>      
-          <%= @product.name %>
-        </h4>
-        <small><%= render_category_path(@product.leaf_category).html_safe %></small><br />
-        <small><b>Price: </b><%= number_to_currency(@product.price, :unit => "HRK ", :separator => ',', :delimiter => '.') %></small><br />
-        <small><b>Sales unit of measure: </b><%= @product.sales_unit_of_measure %></small><br />
-        <small><b>Manufacturer: </b><%= @product.manufacturer %></small><br />
-        <small><b>Supplier: </b><%= @product.supplier %></small><br />
-        <small><b>Product description: </b><%= @product.description %></small><br />
-        <div class="btn-toolbar">
-          <div class="btn-group">
-            <% if @like.nil? %>
-              <%= link_to "<i class=\"icon-thumbs-up\"></i>".html_safe, likes_path(:likeable_id => @product.id, :likeable_type => "PRODUCT"), :id => "like-button", :class => "btn btn-success", :title => "Like", :method => :post, 'data-toggle' => "button", :remote => true %>
-            <% else %>
-              <%= link_to "<i class=\"icon-thumbs-up\"></i>".html_safe, like_path(@like), :id => "like-button", :class => "btn btn-success active", :title => "Dislike", :method => :delete, 'data-toggle' => "button", :remote => true %>
-            <% end %>
-            <% if @favorite.nil? %>
-              <%= link_to "<i class=\"icon-heart\"></i>".html_safe, favorites_path(:product_id => @product.id), :id => "favorite-button", :class => "btn btn-success", :title => "Add to favorites", :method => :post, 'data-toggle' => "button", :remote => true %>
-            <% else %>
-              <%= link_to "<i class=\"icon-heart\"></i>".html_safe, favorite_path(@favorite), :id => "favorite-button", :class => "btn btn-success active", :title => "Remove from favorites", :method => :delete, 'data-toggle' => "button", :remote => true %>
-            <% end %>
-            <a href="#" class="btn btn-success" title="Share"><i class="icon-white icon-share-alt"></i></a>
+      <div class="row-fluid">
+        <div class="span4">
+          <%= image_tag @product.image_large, :class => 'pull-left span12 clearfix img-polaroid' %>
+        </div>
+        <div class="span8">
+          <div class="caption" class="pull-left">
+            <%= add_btn_helper(@product, :medium, 'pull-right') %>        
+            <h4>      
+              <%= @product.name %>
+            </h4>
+            <small><%= render_category_path(@product.leaf_category).html_safe %></small><br />
+            <small><b>Price: </b><%= number_to_currency(@product.price, :unit => "HRK ", :separator => ',', :delimiter => '.') %></small><br />
+            <small><b>Sales unit of measure: </b><%= @product.sales_unit_of_measure %></small><br />
+            <small><b>Manufacturer: </b><%= @product.manufacturer %></small><br />
+            <small><b>Supplier: </b><%= @product.supplier %></small><br />
+            <small><b>Product description: </b><%= @product.description %></small><br />
+            <div class="btn-toolbar">
+              <div class="btn-group">
+                <% if @like.nil? %>
+                  <%= link_to "<i class=\"icon-thumbs-up\"></i>".html_safe, likes_path(:likeable_id => @product.id, :likeable_type => "PRODUCT"), :id => "like-button", :class => "btn btn-success", :title => "Like", :method => :post, 'data-toggle' => "button", :remote => true %>
+                <% else %>
+                  <%= link_to "<i class=\"icon-thumbs-up\"></i>".html_safe, like_path(@like), :id => "like-button", :class => "btn btn-success active", :title => "Dislike", :method => :delete, 'data-toggle' => "button", :remote => true %>
+                <% end %>
+                <% if @favorite.nil? %>
+                  <%= link_to "<i class=\"icon-heart\"></i>".html_safe, favorites_path(:product_id => @product.id), :id => "favorite-button", :class => "btn btn-success", :title => "Add to favorites", :method => :post, 'data-toggle' => "button", :remote => true %>
+                <% else %>
+                  <%= link_to "<i class=\"icon-heart\"></i>".html_safe, favorite_path(@favorite), :id => "favorite-button", :class => "btn btn-success active", :title => "Remove from favorites", :method => :delete, 'data-toggle' => "button", :remote => true %>
+                <% end %>
+                <%= link_to "<i class=\"icon-share-alt\"></i>".html_safe, "#share_modal", :id => "share", :class => "btn btn-success", :title => "Share" %>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </li>  
 </ul>
+
+<%= render :partial => 'shared/share_modal' %>
 
 <div id="like-notice">
 </div>
@@ -42,32 +50,11 @@
 <%= render :partial => 'friends_who_liked_product' %>
 <%= render :partial => 'friends_who_favorize_product' %>
 
-<blockquote style="margin-top: 40px;">
-  <p>Friends who bought this product also bought:</p>
-</blockquote>
-<table class="table table-striped">
+<% unless @popular_products_in_category.blank? %>
+  <blockquote style="margin-top: 40px;">
+    <p>Your friends also like in <%= link_to @product.leaf_category.parent.name, category_path(@product.leaf_category.parent) %> product category:</p>
+  </blockquote>
 
-  <tbody>
-    <% Product.all.limit(5).each do |product| %>
-    <tr>
-      <td>
-        <div>
-          Relevance: <span class="pull-right strong">75%</span>
-          <div class="progress progress-striped active">
-            <div class="bar " style="width: 75%;"></div>
-          </div>
-        </div>
-      </td>
-      <td><%= truncate product.name, :length => 50 %></td>
-      <td><%= number_to_currency(product.price, :unit => "HRK ", :separator => ',', :delimiter => '.') %></td>
-      <td>
-        <%= link_to "<i class=\"icon-info\"> Info</i>".html_safe, product_path(product), :class => "btn btn-small" %>
-      </td>
-      <td>
-        <%= add_btn_helper(product, :small) %>
-      <td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+  <%= render :partial => 'shared/popular_friends_products_list', :locals => {:popular_products => @popular_products_in_category, :max_factor => @max_factor} %>
+<% end %>
 

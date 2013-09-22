@@ -1,5 +1,5 @@
 <div class="media">
-  <%= link_to (image_tag 'image_unavailable_gray_media.png', :class => "imageClip pull-left"), product_path(activity.product), :class => "thumbnail pull-left", :style => "width: 50px; height: 50px;", :title => activity.product.name %>
+  <%= link_to (image_tag activity.product.image_small, :class => "imageClip pull-left"), product_path(activity.product), :class => "thumbnail pull-left", :style => "width: 50px; height: 50px;", :title => activity.product.name %>
   <div class="media-body">
     <p>
       <small><strong><%= activity.product.name %></strong></small><br />

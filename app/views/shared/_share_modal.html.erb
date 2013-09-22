@@ -1,0 +1,54 @@
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('a[disabled=disabled]').click(function(event){
+        event.preventDefault();
+        return false; // Prevent link from following its href
+    });
+  });
+  
+  $(document).ready(function() {
+    $("#share").click(function(){
+      if ($(this).prop('disabled', 'disabled')) {
+        $("#shareModal").modal('show');
+      };
+    });
+  });
+</script>
+
+<div id="shareModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Publish product on your timeline</h3>
+  </div>
+  <div class="modal-body">
+    <p>You will share product <%= link_to @product.name, product_path(@product) %> with your Facebook friends.</p>
+    
+    <div class="thumbnail clearfix">
+      <table>
+        <tr>
+        <td>
+          <%= image_tag @product.image_medium, :class => 'pull-left span12 clearfix', :style => 'margin-right:10px' %>
+        </td>
+        <td>
+          <div class="caption" class="pull-left">
+            <h4>      
+              <%= @product.name %>
+            </h4>
+            <small><%= render_category_path(@product.leaf_category).html_safe %></small><br />
+            <small><b>Price: </b><%= number_to_currency(@product.price, :unit => "HRK ", :separator => ',', :delimiter => '.') %></small><br />
+            <small><b>Sales unit of measure: </b><%= @product.sales_unit_of_measure %></small><br />
+            <small><b>Manufacturer: </b><%= @product.manufacturer %></small><br />
+            <small><b>Supplier: </b><%= @product.supplier %></small><br />
+            <small><b>Product description: </b><%= @product.description %></small><br />
+          </div>
+        </td>
+      </tr>
+      </table>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true"><i class="icon-remove"> Cancel</i></button>
+    <%= link_to "<i class=\"icon-share-alt\"> Share</i>".html_safe, share_product_path(@product), :class => "btn btn-primary", :method => :post %>
+  </div>
+</div>

@@ -1,2 +1,10 @@
-<h1>ShoppingLists#new</h1>
-<p>Find me in app/views/shopping_lists/new.html.erb</p>
+<%= render :partial => "dashboard/navigation_sidebar" %>
+<div class="span9">
+  <div class="well well-small">
+    <h4 style="margin-left: 15px;">
+      <i class="icon-list"/></i> Shopping lists
+    </h4>
+  </div>
+  <!-- Add invite friends dialog -->
+<%= render 'list_form' %>
+</div>

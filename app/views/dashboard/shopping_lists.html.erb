@@ -3,7 +3,7 @@
   <div class="well well-small">
     <h4 style="margin-left: 15px;">
       <i class="icon-list"/></i> Shopping lists
-        <%= link_to "<i class=\"icon-plus\"></i> Add Shopping List".html_safe, new_recipe_path, :class => "btn btn-primary pull-right", disabled: !session[:active_recipe].nil? %>
+        <%= link_to "<i class=\"icon-plus\"></i> Add Shopping List".html_safe, new_shopping_list_path, :class => "btn btn-primary pull-right" %>
     </h4>
   </div>
 
@@ -13,6 +13,6 @@
         You are not a member of any shopping lists.
     </div>
   <% else %>
-    <%= render 'shared/_users_shopping_lists', :locals => {:shopping_lists => @shopping_lists} %>
+    <%= render 'shared/users_shopping_lists', locals: {shopping_lists: @shopping_lists} %>
   <% end %>  
 </div>

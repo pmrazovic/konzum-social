@@ -1,0 +1,22 @@
+<div class="thumbnail clearfix">
+  <table>
+    <tr>
+    <td>
+      <%= image_tag product.image_medium, :class => 'pull-left span12 clearfix', :style => 'margin-right:10px' %>
+    </td>
+    <td>
+      <div class="caption" class="pull-left">
+        <h4>      
+          <%= product.name %>
+        </h4>
+        <small><%= render_category_path(product.leaf_category).html_safe %></small><br />
+        <small><b>Price: </b><%= number_to_currency(product.price, :unit => "HRK ", :separator => ',', :delimiter => '.') %></small><br />
+        <small><b>Sales unit of measure: </b><%= product.sales_unit_of_measure %></small><br />
+        <small><b>Manufacturer: </b><%= product.manufacturer %></small><br />
+        <small><b>Supplier: </b><%= product.supplier %></small><br />
+        <small><b>Product description: </b><%= product.description %></small><br />
+      </div>
+    </td>
+  </tr>
+  </table>
+</div>

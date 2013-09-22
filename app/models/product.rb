@@ -48,6 +48,10 @@ class Product < ActiveRecord::Base
     categories.select{|c| c.children.blank?}.first
   end
 
+  def image
+    "https://online.konzum.hr/images/products/#{code[0,3]}/#{code}.gif"
+  end
+
   def image_small
     "https://online.konzum.hr/images/products/#{code[0,3]}/#{code}s.gif"
   end

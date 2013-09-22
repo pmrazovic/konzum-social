@@ -1,3 +1,16 @@
+<% unless flash[:share_notice_success].blank? %>
+  <div class="alert alert-success">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <%= flash[:share_notice_success].html_safe %>
+  </div>
+<% end %>
+<% unless flash[:share_notice_error].blank? %>
+  <div class="alert alert-error">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <%= flash[:share_notice_error].html_safe %>
+  </div>
+<% end %>
+
 <ul class="thumbnails">
   <li class="span12 clearfix">
     <div class="thumbnail clearfix">

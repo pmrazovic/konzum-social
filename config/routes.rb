@@ -16,7 +16,8 @@ KonzumSocial::Application.routes.draw do
   resources :categories
   resources :products do
     member do
-      post 'share'
+      post 'share_on_facebook'
+      post 'share_in_email'
     end
   end
   resources :users do

@@ -1,0 +1,19 @@
+<h3><%= @user.full_name %> recommends you product <%= link_to @product.name, product_url(@product, :host => HOST) %> and asks you to join Konzum Social Network!</h3>
+
+<table>
+  <tr>
+  <td>
+    <%= image_tag @product.image, :alt => @product.name %>
+  </td>
+  <td>
+    <h4>      
+      <%= link_to @product.name, product_url(@product, :host => HOST) %>
+    </h4>
+    <small><b>Price: </b><%= number_to_currency(@product.price, :unit => "HRK ", :separator => ',', :delimiter => '.') %></small><br />
+    <small><b>Sales unit of measure: </b><%= @product.sales_unit_of_measure %></small><br />
+    <small><b>Manufacturer: </b><%= @product.manufacturer %></small><br />
+    <small><b>Supplier: </b><%= @product.supplier %></small><br />
+    <small><b>Product description: </b><%= @product.description %></small><br />
+  </td>
+</tr>
+</table>

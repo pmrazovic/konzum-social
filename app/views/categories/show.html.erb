@@ -26,7 +26,7 @@
         <td style="width: 55px;">
           <%= link_to (image_tag product.image_small, :class => "imageClip pull-left"), product_path(product), :class => "thumbnail pull-left", :style => "width: 50px; height: 50px;", :title => product.name %>
         </td>
-        <td><%= truncate product.name, :length => 65 %></td>
+        <td><%= truncate product.name, :length => 50 %></td>
         <td><%= product.sales_unit_of_measure %></td>
         <td><%= number_to_currency(product.price, :unit => "HRK ", :separator => ',', :delimiter => '.') %></td>
         <td>

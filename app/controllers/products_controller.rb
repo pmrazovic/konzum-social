@@ -13,10 +13,23 @@ class ProductsController < ApplicationController
     @max_factor = @popular_products_in_category.first.factor unless @popular_products_in_category.blank?
   end
 
-  def share
+  def share_on_facebook
     if current_user.connected_with_facebook?
       @product = Product.find_by_id(params[:id])
       Publisher.share(@product, product_url(@product), current_user, 'Check out this product on Konzum Online Store')
+    end
+    flash[:share_notice_success] = "Product was successfuly published on your timeline."
+    redirect_to :back
+  end
+
+  def share_in_email
+    @product = Product.find_by_id(params[:id])
+    email = params[:email]
+    if ApplicationHelper.is_email?(email)
+      ProductRecommender.recommend(email, @product, current_user).deliver!
+     flash[:share_notice_success] = "Product was successfuly sent to #{email}."
+    else
+      flash[:share_notice_error] = "E-mail address is not valid."
     end
     redirect_to :back
   end

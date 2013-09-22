@@ -18,37 +18,46 @@
 <div id="shareModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">Publish product on your timeline</h3>
+    <h3 id="myModalLabel">Share product with your friends</h3>
   </div>
   <div class="modal-body">
-    <p>You will share product <%= link_to @product.name, product_path(@product) %> with your Facebook friends.</p>
     
-    <div class="thumbnail clearfix">
-      <table>
-        <tr>
-        <td>
-          <%= image_tag @product.image_medium, :class => 'pull-left span12 clearfix', :style => 'margin-right:10px' %>
-        </td>
-        <td>
-          <div class="caption" class="pull-left">
-            <h4>      
-              <%= @product.name %>
-            </h4>
-            <small><%= render_category_path(@product.leaf_category).html_safe %></small><br />
-            <small><b>Price: </b><%= number_to_currency(@product.price, :unit => "HRK ", :separator => ',', :delimiter => '.') %></small><br />
-            <small><b>Sales unit of measure: </b><%= @product.sales_unit_of_measure %></small><br />
-            <small><b>Manufacturer: </b><%= @product.manufacturer %></small><br />
-            <small><b>Supplier: </b><%= @product.supplier %></small><br />
-            <small><b>Product description: </b><%= @product.description %></small><br />
+    <div class="tabbable"> <!-- Only required for left/right tabs -->
+      <ul class="nav nav-tabs">
+        <li class="active"><a href="#tab1" data-toggle="tab"><i class="icon-envelope icon-large"></i> E-mail</a></li>
+        <% if current_user.connected_with_facebook? %>
+          <li><a href="#tab2" data-toggle="tab"><i class="icon-facebook-sign icon-large"></i> Facebook</a></li>
+        <% end %>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane active" id="tab1">
+          <p>You will send product <%= link_to @product.name, product_path(@product) %> in e-mail. Please enter your friends' e-mail address.</p>
+          <%= form_tag share_in_email_product_path(@product), :class => "form-horizontal share", :method => :post do %>
+            <div class="control-group">
+              <%= label_tag 'E-mail', nil, :class => "control-label" %>
+              <div class="controls">
+                <%= email_field_tag :email %>   
+              </div>
+            </div>
+            <%= render :partial => 'shared/product_info_share_modal', :locals => {:product => @product } %>
+            <p></p>
+            <div class="modal-footer">
+              <button class="btn" data-dismiss="modal" aria-hidden="true"><i class="icon-remove"> Cancel</i></button>
+              <%= button_tag "<i class=\"icon-envelope\"> Send</i>".html_safe, :class => "btn btn-primary", :type => :submit %>
+            </div>
+          <% end %>
+        </div>
+        <div class="tab-pane" id="tab2">
+          <p>You will share product <%= link_to @product.name, product_path(@product) %> with your Facebook friends.</p>
+          <%= render :partial => 'shared/product_info_share_modal', :locals => {:product => @product } %>
+          <p></p>
+          <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true"><i class="icon-remove"> Cancel</i></button>
+            <%= link_to "<i class=\"icon-share-alt\"> Share</i>".html_safe, share_on_facebook_product_path(@product), :class => "btn btn-primary", :method => :post %>
           </div>
-        </td>
-      </tr>
-      </table>
+        </div>
+      </div>
     </div>
 
-  </div>
-  <div class="modal-footer">
-    <button class="btn" data-dismiss="modal" aria-hidden="true"><i class="icon-remove"> Cancel</i></button>
-    <%= link_to "<i class=\"icon-share-alt\"> Share</i>".html_safe, share_product_path(@product), :class => "btn btn-primary", :method => :post %>
   </div>
 </div>

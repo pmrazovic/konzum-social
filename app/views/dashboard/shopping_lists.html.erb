@@ -3,7 +3,7 @@
   <div class="well well-small">
     <h4 style="margin-left: 15px;">
       <i class="icon-list"/></i> Shopping lists
-        <%= link_to "<i class=\"icon-plus\"></i> Add Shopping List".html_safe, new_shopping_list_path, :class => "btn btn-primary pull-right" %>
+        <%= link_to "<i class=\"icon-plus\"></i> Add Shopping List".html_safe, new_shopping_list_path, :class => "btn btn-primary pull-right", disabled: !session[:active_shopping_list].nil? %>
     </h4>
   </div>
 

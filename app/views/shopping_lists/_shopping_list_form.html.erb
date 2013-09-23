@@ -12,16 +12,16 @@
   
   <div class="control-group">
     <div class="controls">
-      <%= button_tag type: "submit", class: "btn btn-primary", name: "modify_items" do %> 
-        <i class="icon-cog"></i> Modify Items
+      <%= button_tag type: "submit", class: "btn btn-primary", name: "modify_friends" do %> 
+        <i class="icon-cog"></i> Modify Friends
       <% end %>
     </div>
   </div>
-
+  
   <div class="control-group">
     <div class="controls">
-      <%= button_tag type: "submit", class: "btn btn-primary", name: "modify_friends" do %> 
-        <i class="icon-cog"></i> Modify Friends
+      <%= button_tag type: "submit", class: "btn btn-primary", name: "modify_items" do %> 
+        <i class="icon-cog"></i> Modify Items
       <% end %>
     </div>
   </div>
@@ -43,15 +43,15 @@
   </div>
 
   <div class="control-group">
-    <%= f.label :instructions, :class => "control-label" %>
+    <%= f.label :comment, :class => "control-label" %>
     <div class="controls">
-      <%= f.text_area :instructions, rows: 6, class: "input-xxlarge" %>   
+      <%= f.text_area :comment, rows: 6, class: "input-xxlarge" %>   
     </div>
   </div>
 
   <div class="control-group">
     <div class="controls">
-      <%= f.submit "Save", class: "btn btn-primary", name: "save" %>
+      <%= f.submit "Save", class: "btn btn-primary", name: 'save' %>
     </div>
   </div>
 

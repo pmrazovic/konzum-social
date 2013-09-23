@@ -7,9 +7,12 @@ class RecipesController < ApplicationController
     @recipe = current_user.recipes.build
     @recipe.save
     session[:active_recipe] = @recipe.id
+    session[:active_shopping_list] = nil
+
   end
 
-  def show    
+  def show  
+    session[:active_shopping_list] = nil
   end
 
   def add_all_to_cart
@@ -23,6 +26,7 @@ class RecipesController < ApplicationController
 
   def edit
     session[:active_recipe] = @recipe.id
+    session[:active_shopping_list] = nil
   end
 
   def update

@@ -14,14 +14,14 @@
           <%= truncate list.comment, :length => 70 %>  
         </td>
         <td>
-          <%= link_to "<i class=\"icon-file-text-alt\"></i> View shopping list".html_safe, shopping_list_path(list), :class => "btn btn-primary btn-small" %>          
+          <%= link_to "<i class=\"icon-file-text-alt\"></i> View shopping list".html_safe, shopping_list_path(list), :class => "btn btn-primary btn-small", disabled: !session[:active_shopping_list].nil? %>          
         </td>
         <% if list.users.include? current_user %>
           <td>
-            <%= link_to "<i class=\"icon-edit\"></i> View and Edit list".html_safe, edit_shopping_list_path(list), :class => "btn btn-primary btn-small" %>
+            <%= link_to "<i class=\"icon-edit\"></i> Edit list".html_safe, edit_shopping_list_path(list), :class => "btn btn-primary btn-small", disabled: !(session[:active_shopping_list].nil? || session[:active_shopping_list] == list.id) %>
           </td>
           <td>
-          <%= link_to "<i class=\"icon-remove\"></i>".html_safe, recipe_path(recipe), :method => :delete, :title => "Remove from favorites" %>
+          <%= link_to "<i class=\"icon-remove\"></i>".html_safe, shopping_list_path(list), :method => :delete, :title => "Remove" %>
           </td>
         <% end %>
       </tr>

@@ -110,10 +110,12 @@ module HtmlHelper
   end
 
   def add_btn_helper(product, size=:small, xtraArgs='', isRemote = true)                       
-    if session[:active_recipe] == nil
+    if session[:active_recipe] == nil && session[:active_shopping_list] == nil
       link_to "<i class =\"icon-shopping-cart\"></i> Add to cart".html_safe, cart_items_path(:product_id => product), :class => "btn btn-primary btn-#{size} #{xtraArgs}", :method => :post, :remote => true
-    else 
-      link_to "<i class=\"icon-food\"></i> Add ingredient".html_safe, ingredients_path(product_id: product), :class => "btn btn-primary btn-#{size} #{xtraArgs}", :method => :post, :remote => true         
+    elsif session[:active_recipe] != nil      
+      link_to "<i class=\"icon-food\"></i> Add ingredient".html_safe, ingredients_path(product_id: product), :class => "btn btn-primary btn-#{size} #{xtraArgs}", :method => :post, :remote => true
+    else         
+      link_to "<i class=\"icon-list\"></i> Add to list".html_safe, list_items_path(product_id: product), :class => "btn btn-primary btn-#{size} #{xtraArgs}", :method => :post, :remote => true
     end 
   end
 end

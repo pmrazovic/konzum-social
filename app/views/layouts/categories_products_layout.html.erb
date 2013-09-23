@@ -21,17 +21,22 @@
 
       <div class="span3"> 
         <div class="well" style="text-align: center;">
-        <% if session[:active_recipe] == nil %>
-          <h5 class="muted"><%= image_tag 'shopping-cart.png' %> Your Konzum cart</h5>
-          <div id="cart">
-            <%= render :partial => 'shared/cart' %>
-          </div>
-        <% else %>
-          <h5 class="muted"><%= image_tag 'ingredients.png' %> Your Ingredients</h5>
-          <div id="ingredients">
-            <%= render 'shared/ingredients' %>
-          </div>
-        <% end %>
+          <% if session[:active_recipe] == nil && session[:active_shopping_list] == nil %>
+              <h5 class="muted"><%= image_tag 'shopping-cart.png' %> Your Konzum cart</h5>
+              <div id="cart">
+                <%= render :partial => 'shared/cart' %>
+              </div>
+          <% elsif session[:active_shopping_list] != nil %>
+              <h5 class="muted"><%= image_tag 'shopping_list.png' %> Your Shopping List</h5>
+              <div id="shopping_list">
+                <%= render :partial => 'shared/shopping_list' %>
+              </div>
+          <% else %>
+              <h5 class="muted"><%= image_tag 'ingredients.png' %> Your Ingredients</h5>
+              <div id="ingredients">
+                <%= render :partial => 'shared/ingredients' %>
+              </div>
+          <% end %>
         </div>
         <%= render :partial => 'shared/category_nav_list' %>
       </div>

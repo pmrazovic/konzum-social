@@ -7,7 +7,7 @@ class ListItemsController < ApplicationController
     if item
       item.quantity += 1
     else
-      item = shopping_list.list_items.build(user_id: current_user, product_id: pid, quantity: 1)    
+      item = shopping_list.list_items.build(user_id: current_user.id, product_id: pid, quantity: 1)    
     end
     respond_to do |format|
       if item.save

@@ -12,12 +12,10 @@
   
   <div class="control-group">
     <div class="controls">
-      <%= button_tag type: "submit", class: "btn btn-primary", name: "modify_friends" do %> 
-        <i class="icon-cog"></i> Modify Friends
-      <% end %>
+      <%= link_to "<i class=\"icon-group\"></i> Invite Friends".html_safe, "#inviteFriendsModal", :class => "btn btn-primary", id: "invite", data_toggle: "modal" %>
     </div>
   </div>
-  
+
   <div class="control-group">
     <div class="controls">
       <%= button_tag type: "submit", class: "btn btn-primary", name: "modify_items" do %> 
@@ -31,11 +29,12 @@
       <table class="table table-striped">
         <% @list.list_items.each do |item| %>
         <tr>
+          <td><%= link_to item.user.full_name, profile_user_path(item.user) %> added: </td>
           <td style="width: 55px;">
             <%= link_to (image_tag item.product.image_small, :class => "imageClip pull-left"), product_path(item.product), :class => "thumbnail pull-left", :style => "width: 50px; height: 50px;", :title => item.product.name %>
           </td>
           <td><%= item.quantity %>&times; <%= item.product.name %></td>
-          <td><%= link_to "<i class=\"icon-remove\"></i>".html_safe, ingredient_path(item), :method => :delete %>
+          <td><%= link_to "<i class=\"icon-remove\"></i>".html_safe, list_item_path(item), :method => :delete %>
         </tr>
         <% end %>
       </table>
@@ -57,3 +56,5 @@
 
   <% end %>
 </div>
+
+<%= render :partial => "shared/invite_friends_modal" %>

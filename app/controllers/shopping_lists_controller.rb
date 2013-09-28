@@ -1,6 +1,6 @@
 class ShoppingListsController < ApplicationController
   before_filter :authenticate_user!
-  before_action :set_list, only: [:show, :edit, :update, :destroy, :add_all_to_cart]
+  before_action :set_list, only: [:show, :edit, :update, :destroy, :add_all_to_cart, :invite]
   before_action :set_cart
 
   def show
@@ -8,14 +8,10 @@ class ShoppingListsController < ApplicationController
   end
 
   def new
-    lu = current_user.list_users.build
-    lu.save
-    @list = lu.lists.build
-    puts @list
-    puts "--------------------------------------"
+    @list = current_user.shopping_lists.build
     @list.save
-    puts @list
-
+    list_user = current_user.list_users.build(list_id: @list.id)
+    list_user.save
     session[:active_shopping_list] = @list.id
     session[:active_recipe] = nil
   end
@@ -40,6 +36,19 @@ class ShoppingListsController < ApplicationController
   end
 
   def destroy
+    if params[:purge]
+      @list.list_items.destroy_all
+      redirect_to edit_shopping_list_url
+    else
+      if session[:active_shopping_list] == @list.id
+        session[:active_shopping_list] = nil
+      end
+      @list.destroy
+      respond_to do |format|
+        format.html { redirect_to :back, notice: 'Shopping List destroyed.' }
+        format.json { head :ok }
+      end
+    end    
   end
 
   private

@@ -13,6 +13,6 @@
         You are not a member of any shopping lists.
     </div>
   <% else %>
-    <%= render 'shared/users_shopping_lists', locals: {shopping_lists: @shopping_lists} %>
+    <%= render partial: 'shared/users_shopping_lists', locals: {shopping_lists: @shopping_lists} %>
   <% end %>  
 </div>

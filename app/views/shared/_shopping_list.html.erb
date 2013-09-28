@@ -17,7 +17,7 @@
       <% end %>
           <td><%= item.quantity %> &times; <%= item.product.name %></td>
           <td><%= number_to_currency(item.product.price * item.quantity, :separator => ',', :delimiter => '.', :unit => '') %></td>
-          <td><%= link_to "<i class=\"icon-remove\"></i>".html_safe, list_items_path(item), :method => :delete, :remote => true %>
+          <td><%= link_to "<i class=\"icon-remove\"></i>".html_safe, list_item_path(item), :method => :delete, :remote => true %>
       </tr>
     <% end %>
   </table>

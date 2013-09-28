@@ -8,7 +8,6 @@ class RecipesController < ApplicationController
     @recipe.save
     session[:active_recipe] = @recipe.id
     session[:active_shopping_list] = nil
-
   end
 
   def show  

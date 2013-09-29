@@ -1,4 +1,5 @@
 KonzumSocial::Application.routes.draw do
+
   devise_for :users, path_names: {sign_in: "login", sign_out: "logout"},
               controllers: {omniauth_callbacks: "authentications"}
   resources :authentications
@@ -41,6 +42,13 @@ KonzumSocial::Application.routes.draw do
       get 'add_all_to_cart'
     end
   end
+  resources :shopping_lists do 
+    member do 
+      get 'add_all_to_cart'
+    end
+  end
+  resources :list_items
+  resources :list_users
   get "user/:id/profile/orders" => "users#profile_orders", :as => 'profile_orders'
   get "user/:id/profile/likes" => "users#profile_likes", :as => 'profile_likes'
   get "user/:id/profile/favorites" => "users#profile_favorites", :as => 'profile_favorites'

@@ -1,6 +1,18 @@
-<%= render :partial => "dashboard/navigation_sidebar" %>
+<%= render 'dashboard/navigation_sidebar' %>
 <div class="span9">
   <div class="well well-small">
-    <h4 style="margin-left: 15px;"><i class="icon-list"/></i> Shopping lists</h4>
+    <h4 style="margin-left: 15px;">
+      <i class="icon-list"/></i> Shopping lists
+        <%= link_to "<i class=\"icon-plus\"></i> Add Shopping List".html_safe, new_shopping_list_path, :class => "btn btn-primary pull-right", disabled: !session[:active_shopping_list].nil? %>
+    </h4>
   </div>
+
+  <% if @shopping_lists.blank? %>
+    <div class="alert alert-info">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+        You are not a member of any shopping lists.
+    </div>
+  <% else %>
+    <%= render partial: 'shared/users_shopping_lists', locals: {shopping_lists: @shopping_lists} %>
+  <% end %>  
 </div>

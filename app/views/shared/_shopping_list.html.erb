@@ -1,0 +1,34 @@
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('a[disabled=disabled]').click(function(event){
+        event.preventDefault();
+        return false; // Prevent link from following its href
+    });
+  });
+</script>
+
+<% unless get_active_list.list_items.blank? %>
+  <table class="table table-condensed" style="font-size: small;">
+    <% get_active_list.list_items.sort.each do |item|%>
+      <% if item == @current_item %>
+        <tr id="current_item">
+      <% else %>
+        <tr>
+      <% end %>
+          <td><%= item.quantity %> &times; <%= item.product.name %></td>
+          <td><%= number_to_currency(item.product.price * item.quantity, :separator => ',', :delimiter => '.', :unit => '') %></td>
+          <td><%= link_to "<i class=\"icon-remove\"></i>".html_safe, list_item_path(item), :method => :delete, :remote => true %>
+      </tr>
+    <% end %>
+  </table>
+<% else %>
+  <div class="well">
+    <small>You haven't selected any products.</small>
+  </div>
+<% end %>
+
+<div class="btn-group">
+  <%= link_to "<i class=\"icon-save\"> Save</i>".html_safe, edit_shopping_list_path(get_active_list), :class => "btn btn-primary", disabled: get_active_list.list_items.blank? %>
+
+  <%= link_to "<i class=\"icon-trash\"> Delete All</i>".html_safe, shopping_list_path(get_active_list, purge: true), :class => "btn btn-danger", method: :delete, disabled: get_active_list.list_items.blank? %>
+</div>

@@ -12,7 +12,9 @@ class User < ActiveRecord::Base
   has_many :likes, :dependent => :destroy
   has_many :favorites, :dependent => :destroy
   has_many :recipes, :dependent => :destroy
-  
+  has_many :list_users
+  has_many :shopping_lists, through: :list_users, source: :list
+
   devise :database_authenticatable, :registerable, :omniauthable,
          :recoverable, :rememberable, :trackable, :validatable
          

@@ -23,10 +23,14 @@
           <td>
             <%= user.email %>
           </td>
-          <% if friendship_status(current_user, user) == 'None' %>
+          <% fs = friendship_status(current_user, user) %>
+          <% if fs == 'None' %>
             <td><%= link_to "<i class=\"icon-plus\"> Send friend request</i>".html_safe, friendships_path(friend_id: user), method: :post, :class => "btn btn-primary btn-small" %></td>
+          <% elsif fs == 'OK' %>
+          <!-- dummy id 0 for friendship is OK, I don't know why it isn't automatically recognized -->
+            <td><%= link_to "<i class=\"icon-minus\"> Remove from friends</i>".html_safe, friendship_path(friend_id: user, id:0), method: :delete, :class => "btn btn-danger btn-small" %></td>            
           <% else %>
-            <td><%= link_to "<i class=\"icon-minus\"> Remove from friends</i>".html_safe, friendship_path(friend_id: user, :id => Friendship.where(:friend_id => user.id, :user_id => current_user.id).first.id), method: :delete, :class => "btn btn-danger btn-small" %></td>            
+            <td><%= link_to "<i class=\"icon-minus\"> Remove pending</i>".html_safe, friendship_path(friend_id: user, id: 0), method: :delete, :class => "btn btn-danger btn-small" %></td> 
           <% end %>
         </tr>
       <%end%>

@@ -17,7 +17,7 @@ class RecipesController < ApplicationController
   def add_all_to_cart
     @recipe.ingredients.each do |ingredient|
       cart_item = current_cart.add_product(ingredient.product.id)
-      cart_item.quantity += ingredient.quantity
+      cart_item.quantity += ingredient.quantity - 1
       cart_item.save
     end
     redirect_to :back

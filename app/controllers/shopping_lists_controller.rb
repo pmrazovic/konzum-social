@@ -51,6 +51,15 @@ class ShoppingListsController < ApplicationController
     end    
   end
 
+  def add_all_to_cart
+    @list.list_items.each do |item|
+      cart_item = current_cart.add_product(item.product.id)
+      cart_item.quantity += item.quantity - 1 
+      cart_item.save
+    end
+    redirect_to :back
+  end  
+
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_list

@@ -1,4 +1,6 @@
-<%= render 'user_sideinfo' %>
+<% @friend_status = friendship_status(current_user, @user) %>
+
+<%= render partial: 'user_sideinfo' %>
 
 <div class="span9">
   <div class="well well-small">
@@ -8,9 +10,27 @@
   <div class="pagination">
     <%= will_paginate @user_activities, :previous_label => 'Previous', :next_label => 'Next', :renderer => 'BootstrapPaginationHelper::LinkRenderer'%>
   </div>
-
-  <%= render :partial => 'shared/list_user_activities', :locals => {:user_activities => @user_activities} %>
-
+  <% if @friend_status == 'OK' || @user == current_user%>
+    <%= render :partial => 'shared/list_user_activities', :locals => {:user_activities => @user_activities} %>
+  <% elsif @friend_status == 'None' %>
+    <% if friendship_status(@user, current_user) == 'Pending' %>
+      <div class="well well-small">
+        <h4 style="margin-left: 15px;"> Become a friend first to see other info 
+          <%= link_to "<i class=\"icon-ok\"> Accept</i>".html_safe, friendship_path(friend_id: @user , id: current_user), method: :put, :class => "btn btn-primary btn-small" %>
+          <%= link_to "<i class=\"icon-remove\"> Reject</i>".html_safe, friendship_path(friend_id: @user , id: current_user), method: :delete, :class => "btn btn-danger btn-small" %>
+        </h4>
+      </div>
+    <% else %>
+      <div class="well well-small">
+        <h4 style="margin-left: 15px;"> Become a friend first to see other info 
+        <%= link_to "<i class=\"icon-plus\"> Send friend request</i>".html_safe, friendships_path(friend_id: @user), method: :post, :class => "btn btn-primary btn-small" %></h4>
+      </div>
+    <% end %>
+  <% elsif @friend_status=='Pending' %>
+    <div class="well well-small">
+      <h4 style="margin-left: 15px;"> Become a friend first to see other info <%= link_to "<i class=\"icon-minus\"> Remove pending</i>".html_safe, friendship_path(friend_id: @user, id: 0), method: :delete, :class => "btn btn-danger btn-small" %></h4>
+    </div>      
+  <% end %>
   <div class="pagination">
     <%= will_paginate @user_activities, :previous_label => 'Previous', :next_label => 'Next', :renderer => 'BootstrapPaginationHelper::LinkRenderer'%>
   </div>

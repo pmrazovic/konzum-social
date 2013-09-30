@@ -41,6 +41,7 @@ class AuthenticationsController < ApplicationController
      if user.save      
       update_friendships(user)
       flash[:notice] = "Logged in."
+      update_profile_image(user)
       sign_in_and_redirect User.find(user.id)             
     else
      session[:omniauth] = omni.except('extra')
